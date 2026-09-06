@@ -40,6 +40,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import EnquireModal from './components/EnquireModal';
 import VideoModal from './components/VideoModal';
+import CookieBanner from './components/CookieBanner';
 
 import HomePage from './pages/HomePage';
 import ExpertisePage from './pages/ExpertisePage';
@@ -86,6 +87,7 @@ function PublicLayout({ children, onOpenEnquire }) {
         {children}
       </main>
       <Footer onOpenEnquire={() => onOpenEnquire()} />
+      <CookieBanner />
     </>
   );
 }
