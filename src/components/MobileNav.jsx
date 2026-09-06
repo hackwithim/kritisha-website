@@ -58,6 +58,16 @@ export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
 
           {/* Nav Links (EXACT MATCH TO DESKTOP NAVBAR) */}
           <nav className="mt-6 flex flex-col gap-2">
+            {/* 0. Home */}
+            <Link
+              to="/"
+              onClick={() => handleNavClick('/')}
+              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors py-2.5 border-b border-white/5"
+            >
+              <span>Home</span>
+              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-[#C5963D]" />
+            </Link>
+
             {/* 1. Projects */}
             <Link
               to="/projects"
