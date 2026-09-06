@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --navy-deep: #0B2341;
+    --navy-secondary: #163F68;
+    --blue-corporate: #1459A6;
+    --gold: #C5963D;
+    --gold-light: #DDBB73;
+    --grey-light: #F5F7F9;
+    --slate: #657586;
+    --white: #FFFFFF;
+  }
+
+  body {
+    background-color: #0B2341;
+    color: #F5F7F9;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-serif-editorial {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+/* Custom Utilities for KRITISHA Master Design */
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans-ui {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Curved Arch Mask for Sustainability Section */
+.curved-arch-mask {
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+}
+
+/* Curved Left Arch Mask for Right Services Panel */
+.curved-arch-left-mask {
+  border-top-left-radius: 240px;
+  border-bottom-left-radius: 240px;
+}
+
+/* Custom Glassmorphism Header */
+.glass-header-pill {
+  background: rgba(11, 35, 65, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Vertical Text Utilities */
+.writing-vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+/* Custom Scrollbar - KRITISHA Corporate Navy & Gold Theme */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #C5963D #0B2341;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B2341;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #C5963D 0%, #A37728 100%);
+  border-radius: 9999px;
+  border: 2px solid #0B2341;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #DDBB73 0%, #C5963D 100%);
+  box-shadow: 0 0 10px rgba(197, 150, 61, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: #0B2341;
+}
