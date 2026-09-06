@@ -236,10 +236,10 @@ export default function Header({ onOpenEnquire }) {
         <div className="flex items-center gap-3 sm:gap-4">
           <button
             onClick={onOpenEnquire}
-            className="inline-flex items-center gap-2 sm:gap-3 bg-white hover:bg-slate-100 text-[#0B2341] font-sans-ui text-xs sm:text-[15px] font-semibold px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full transition-all shadow-lg cursor-pointer border border-white/30 hover:scale-102"
+            className="inline-flex items-center gap-1.5 sm:gap-3 bg-white hover:bg-slate-100 text-[#0B2341] font-sans-ui text-[10px] sm:text-[15px] font-semibold px-3 sm:px-7 py-2 sm:py-3.5 rounded-full transition-all shadow-lg cursor-pointer border border-white/30 hover:scale-102"
           >
-            <span>Enquire Now</span>
-            <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 stroke-[2.5]" />
+            <span className="whitespace-nowrap">Enquire Now</span>
+            <ArrowRight className="w-3 h-3 sm:w-4.5 sm:h-4.5 stroke-[2.5]" />
           </button>
 
           {/* HAMBURGER TOGGLE FOR MOBILE (LG:HIDDEN) */}
