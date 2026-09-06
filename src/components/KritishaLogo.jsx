@@ -1,5 +1,4 @@
 import React from 'react';
-import logoImg from '../assets/logo.png';
 
 export default function KritishaLogo({ 
   variant = 'full', // 'full' | 'icon' | 'dark' | 'light' | 'admin'
@@ -19,7 +18,7 @@ export default function KritishaLogo({
 
   const logoSvg = (
     <img 
-      src={logoImg} 
+      src="/Infrastructure - 3 - Edited.png" 
       alt="Kritisha Logo" 
       className="w-full h-full object-contain drop-shadow-sm"
     />
