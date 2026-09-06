@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { X, ArrowRight, ChevronDown, Phone, Mail, MapPin, Sparkles } from 'lucide-react';
 import KritishaLogo from './KritishaLogo';
 
 export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
   const [isServicesExpanded, setIsServicesExpanded] = useState(false);
+  const location = useLocation();
 
   if (!isOpen) return null;
+
+  const isActive = (path) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
 
   const handleNavClick = (path) => {
     onClose();
@@ -62,20 +68,24 @@ export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
             <Link
               to="/"
               onClick={() => handleNavClick('/')}
-              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors py-2.5 border-b border-white/5"
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 ${
+                isActive('/') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+              }`}
             >
               <span>Home</span>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-[#C5963D]" />
+              <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
             </Link>
 
             {/* 1. Projects */}
             <Link
               to="/projects"
               onClick={() => handleNavClick('/projects')}
-              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors py-2.5 border-b border-white/5"
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 ${
+                isActive('/projects') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+              }`}
             >
               <span>Projects</span>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-[#C5963D]" />
+              <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/projects') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
             </Link>
 
             {/* 2. Services (Expandable Accordion Dropdown) */}
@@ -84,7 +94,9 @@ export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
                 <Link
                   to="/services"
                   onClick={() => handleNavClick('/services')}
-                  className="text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors"
+                  className={`text-lg sm:text-xl font-editorial transition-colors ${
+                    isActive('/services') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+                  }`}
                 >
                   Services
                 </Link>
@@ -126,40 +138,48 @@ export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
             <Link
               to="/about"
               onClick={() => handleNavClick('/about')}
-              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors py-2.5 border-b border-white/5"
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 ${
+                isActive('/about') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+              }`}
             >
               <span>About</span>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-[#C5963D]" />
+              <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/about') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
             </Link>
 
             {/* 4. Insights */}
             <Link
               to="/insights"
               onClick={() => handleNavClick('/insights')}
-              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors py-2.5 border-b border-white/5"
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 ${
+                isActive('/insights') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+              }`}
             >
               <span>Insights</span>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-[#C5963D]" />
+              <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/insights') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
             </Link>
 
             {/* 5. Careers */}
             <Link
               to="/careers"
               onClick={() => handleNavClick('/careers')}
-              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-slate-200 hover:text-[#C5963D] transition-colors py-2.5 border-b border-white/5"
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 ${
+                isActive('/careers') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+              }`}
             >
               <span>Careers</span>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-[#C5963D]" />
+              <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/careers') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
             </Link>
 
             {/* 6. Contact Us */}
             <Link
               to="/contact"
               onClick={() => handleNavClick('/contact')}
-              className="group flex items-center justify-between text-lg sm:text-xl font-editorial text-[#C5963D] hover:text-white transition-colors py-2.5 border-b border-white/5 font-bold"
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 font-bold ${
+                isActive('/contact') ? 'text-white' : 'text-[#C5963D] hover:text-white'
+              }`}
             >
               <span>Contact Us</span>
-              <ArrowRight className="w-4 h-4 text-[#C5963D]" />
+              <ArrowRight className={`w-4 h-4 ${isActive('/contact') ? 'text-white' : 'text-[#C5963D]'}`} />
             </Link>
           </nav>
         </div>
