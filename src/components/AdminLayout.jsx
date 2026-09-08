@@ -21,7 +21,7 @@ import {
   Image as ImageIcon,
   X
 } from 'lucide-react';
-import { getAdminAuth, logoutAdmin, getEnquiries, getSiteSettings, useCmsLiveStore, getAdminProfile, saveAdminProfile, compressImageFile, getCapabilities, getApplications, getProjects, getServices, getInsights } from '../lib/cmsStore';
+import { getAdminAuth, logoutAdmin, getEnquiries, getSiteSettings, useCmsLiveStore, getAdminProfile, saveAdminProfile, compressImageFile, getCapabilities, getApplications, getProjects, getServices, getInsights, hashPassword } from '../lib/cmsStore';
 import KritishaLogo from './KritishaLogo';
 import { Toaster } from 'react-hot-toast';
 
@@ -365,9 +365,10 @@ export default function AdminLayout() {
               </div>
               <div className="flex gap-3 pt-2">
                 <button onClick={() => setIsPasswordModalOpen(false)} className="flex-1 px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer">Cancel</button>
-                <button onClick={() => {
+                <button onClick={async () => {
                   if (newPassword && newPassword === confirmPassword) {
-                    saveAdminProfile({ ...profile, password: newPassword });
+                    const hashed = await hashPassword(newPassword);
+                    saveAdminProfile({ ...profile, password: hashed });
                     setIsPasswordModalOpen(false);
                     setNewPassword('');
                     setConfirmPassword('');

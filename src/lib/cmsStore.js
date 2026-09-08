@@ -656,10 +656,17 @@ export function deleteGalleryItem(id) {
 // ----------------------------------------------------------------------
 // ADMIN AUTHENTICATION & PROFILE
 // ----------------------------------------------------------------------
+export async function hashPassword(password) {
+  const msgBuffer = new TextEncoder().encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 export const getAdminProfile = () => loadStorage(STORAGE_KEYS.ADMIN_PROFILE, {
   name: 'KRITISHA Admin',
   email: 'admin@kritishainfra.com',
-  password: 'admin123',
+  password: '08e087bbe6fb4a014076246dbb60868e84663ebcf6a9c767e5ba987e82db26f2', // Kritisha@Admin2026
   avatar: null
 });
 
@@ -681,9 +688,11 @@ export const saveAdminProfile = (profile) => {
 export const getAdminAuth = () => loadStorage(STORAGE_KEYS.AUTH, { isAuthenticated: false, user: null });
 export const setAdminAuth = (authData) => saveStorage(STORAGE_KEYS.AUTH, authData);
 
-export const loginAdmin = (email, password) => {
+export const loginAdmin = async (email, password) => {
   const profile = getAdminProfile();
-  if (email === profile.email && password === profile.password) {
+  const hashedPassword = await hashPassword(password);
+  
+  if (email === profile.email && hashedPassword === profile.password) {
     const authState = {
       isAuthenticated: true,
       user: {

@@ -5,14 +5,14 @@ import { loginAdmin } from '../lib/cmsStore';
 import KritishaLogo from '../components/KritishaLogo';
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('admin@kritishainfra.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const res = loginAdmin(email, password);
+    const res = await loginAdmin(email, password);
     if (res.success) {
       navigate('/admin');
     } else {
@@ -87,8 +87,6 @@ export default function AdminLogin() {
         </form>
 
         <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-500 space-y-1.5">
-          <p>Demo credentials pre-filled for administrative access:</p>
-          <p className="text-xs text-[#0B2341] font-mono font-bold">admin@kritishainfra.com / admin123</p>
           <div className="pt-2">
             <Link to="/" className="inline-flex items-center gap-1.5 text-slate-500 hover:text-[#C5963D] text-[11px] font-medium transition-colors">
               <span>Return to Public Website</span>
