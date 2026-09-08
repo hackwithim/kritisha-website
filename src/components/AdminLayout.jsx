@@ -266,8 +266,8 @@ export default function AdminLayout() {
       </main>
 
       {/* 3. PROMINENT ENLARGED FLOATING ADMIN DOCK NAVBAR */}
-      <div className="fixed bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-auto max-w-[96vw] px-2">
-        <nav className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full border border-white/20 bg-[#0A192F]/96 backdrop-blur-2xl shadow-2xl ring-1 ring-white/10 transition-all duration-300 max-w-full overflow-x-auto scrollbar-none">
+      <div className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-50 pointer-events-auto max-w-[96vw] px-2">
+        <nav className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-[#0A192F]/96 backdrop-blur-2xl shadow-2xl ring-1 ring-white/10 transition-all duration-300 max-w-full overflow-x-auto scrollbar-none">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
@@ -275,13 +275,13 @@ export default function AdminLayout() {
               <Link
                 key={item.label}
                 to={item.path}
-                className={`relative flex items-center gap-2 px-4 sm:px-4.5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 transition-all duration-300 group ${
+                className={`relative flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-semibold whitespace-nowrap shrink-0 transition-all duration-300 group ${
                   isActive
                     ? 'bg-white/15 text-[#C5963D] font-bold shadow-inner border border-[#C5963D]/40 scale-105 ring-1 ring-[#C5963D]/30'
-                    : 'text-slate-200 hover:text-white hover:bg-white/10 hover:scale-108'
+                    : 'text-slate-200 hover:text-white hover:bg-white/10 hover:scale-105'
                 }`}
               >
-                <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-transform group-hover:scale-110 ${isActive ? 'text-[#C5963D]' : 'text-slate-300 group-hover:text-white'}`} />
+                <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:scale-110 ${isActive ? 'text-[#C5963D]' : 'text-slate-300 group-hover:text-white'}`} />
                 <span className="hidden md:inline tracking-wide whitespace-nowrap">{item.label}</span>
 
                 {/* Badge count for enquiries */}
