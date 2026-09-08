@@ -34,6 +34,8 @@ import {
   updateApplicationStatus,
   useCmsLiveStore
 } from '../../lib/cmsStore';
+import DeleteConfirmModal from '../../components/admin/DeleteConfirmModal';
+import toast from 'react-hot-toast';
 
 const DEPARTMENTS = [
   'Engineering',
@@ -78,6 +80,7 @@ export default function ManageCareers() {
   const [selectedApp, setSelectedApp] = useState(null);
   const [appNotes, setAppNotes] = useState('');
   const [viewingPdfApp, setViewingPdfApp] = useState(null);
+  const [jobToDelete, setJobToDelete] = useState(null);
 
   const handleOpenResumePdf = (app) => {
     if (app.resume_data) {
@@ -214,7 +217,7 @@ export default function ManageCareers() {
   const handleSaveJob = (e) => {
     e.preventDefault();
     if (!jobFormData.title || !jobFormData.short_description) {
-      alert('Please enter a Position Title and Short Description.');
+      toast.error('Please enter a Position Title and Short Description.');
       return;
     }
 
@@ -232,21 +235,19 @@ export default function ManageCareers() {
     };
 
     if (isEditing) {
-      const updated = updateCareer(formattedJob);
-      setCareers(updated);
+      updateCareer(formattedJob);
+      toast.success('Career position updated');
     } else {
-      const updated = addCareer(formattedJob);
-      setCareers(updated);
+      addCareer(formattedJob);
+      toast.success('Career position added');
     }
 
     setIsJobModalOpen(false);
   };
 
   const handleDeleteJob = (id) => {
-    if (confirm('Delete this career position listing?')) {
-      const updated = deleteCareer(id);
-      setCareers(updated);
-    }
+    deleteCareer(id);
+    toast.success('Career position deleted');
   };
 
   const handleUpdateAppStatus = (appId, newStatus) => {
@@ -384,9 +385,9 @@ export default function ManageCareers() {
                       <Edit3 className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => handleDeleteJob(job.id)}
+                      onClick={() => setJobToDelete(job)}
                       className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
-                      title="Delete Position"
+                      title="Delete Job"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -897,6 +898,12 @@ export default function ManageCareers() {
         </div>
       )}
 
+      <DeleteConfirmModal 
+        isOpen={!!jobToDelete}
+        onClose={() => setJobToDelete(null)}
+        onConfirm={() => jobToDelete && handleDeleteJob(jobToDelete.id)}
+        itemName={jobToDelete?.title}
+      />
     </div>
   );
 }

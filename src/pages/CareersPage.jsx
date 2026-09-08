@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
+  ChevronRight, 
   ArrowRight, 
   Briefcase, 
   MapPin, 
+  Clock, 
+  UploadCloud, 
   CheckCircle2, 
-  ChevronRight, 
+  Check, 
   X, 
-  Upload, 
+  Building2, 
+  TrendingUp, 
+  ShieldCheck, 
+  HeartPulse,
+  Upload,
   Send,
-  Building2,
-  Clock,
   UserCheck,
   FileCheck,
   Sparkles,
   Layers
 } from 'lucide-react';
 import { getCareers, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 import CareerApplicationModal from '../components/CareerApplicationModal';
 
 export default function CareersPage() {
@@ -40,9 +46,13 @@ export default function CareersPage() {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
+      <SEO 
+        title="Careers"
+        description="Join Kritisha Infrastructure. We are always looking for passionate engineers, toll operators, and professionals to build the future of India."
+      />
       
       {/* ============================================================ */}
-      {/* 1. HERO — "Build what moves India." */}
+      {/* 01. HERO — "Build what moves India." */}
       {/* ============================================================ */}
       <section className="relative min-h-screen flex items-center pt-32 sm:pt-36 pb-20 px-6 sm:px-12 lg:px-16 border-b border-white/10 overflow-hidden">
         {/* Background Image: High-impact Civil Engineering & Mega Infrastructure */}

@@ -3,12 +3,15 @@ import { Plus, Trash2, Edit, Check, X, Compass, Plane, Car, Users, Navigation, E
 import { getServices, saveServices, addService, updateService, deleteService, useCmsLiveStore } from '../../lib/cmsStore';
 import ImagePickerInput from '../../components/ImagePickerInput';
 import IconPickerInput, { ICON_MAP } from '../../components/IconPickerInput';
+import DeleteConfirmModal from '../../components/admin/DeleteConfirmModal';
+import toast from 'react-hot-toast';
 
 export default function ManageServices() {
   const services = useCmsLiveStore(getServices);
   const [showModal, setShowModal] = useState(false);
   const [editingService, setEditingService] = useState(null);
   const [viewMode, setViewMode] = useState('columns'); // 'table' | 'columns'
+  const [serviceToDelete, setServiceToDelete] = useState(null);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -55,16 +58,17 @@ export default function ManageServices() {
     e.preventDefault();
     if (editingService) {
       updateService(editingService.id, formData);
+      toast.success('Service updated successfully');
     } else {
       addService(formData);
+      toast.success('Service added successfully');
     }
     setShowModal(false);
   };
 
   const handleDelete = (id) => {
-    if (confirm('Are you sure you want to delete this service offering?')) {
-      deleteService(id);
-    }
+    deleteService(id);
+    toast.success('Service deleted');
   };
 
   // Categories list for Column view
@@ -173,8 +177,8 @@ export default function ManageServices() {
                       <Edit className="w-3.5 h-3.5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(srv.id)}
-                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                      onClick={() => setServiceToDelete(srv)}
+                      className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                       title="Delete Service"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -241,8 +245,8 @@ export default function ManageServices() {
                             <Edit className="w-3.5 h-3.5" />
                           </button>
                           <button
-                            onClick={() => handleDelete(srv.id)}
-                            className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                            onClick={() => setServiceToDelete(srv)}
+                            className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                             title="Delete Service"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -399,6 +403,13 @@ export default function ManageServices() {
           </div>
         </div>
       )}
+
+      <DeleteConfirmModal 
+        isOpen={!!serviceToDelete}
+        onClose={() => setServiceToDelete(null)}
+        onConfirm={() => serviceToDelete && handleDelete(serviceToDelete.id)}
+        itemName={serviceToDelete?.title}
+      />
     </div>
   );
 }

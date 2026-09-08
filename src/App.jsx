@@ -52,6 +52,7 @@ import InsightDetailPage from './pages/InsightDetailPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import CareersPage from './pages/CareersPage';
 import ContactPage from './pages/ContactPage';
+import GalleryPage from './pages/GalleryPage';
 
 import AdminLogin from './pages/AdminLogin';
 import AdminLayout from './components/AdminLayout';
@@ -62,6 +63,7 @@ import ManageInsights from './pages/admin/ManageInsights';
 import ManageCapabilities from './pages/admin/ManageCapabilities';
 import ManageLeadership from './pages/admin/ManageLeadership';
 import ManageCareers from './pages/admin/ManageCareers';
+import ManageGallery from './pages/admin/ManageGallery';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfUsePage from './pages/TermsOfUsePage';
 import SitemapPage from './pages/SitemapPage';
@@ -178,6 +180,14 @@ export default function App() {
           }
         />
         <Route
+          path="/gallery"
+          element={
+            <PublicLayout onOpenEnquire={handleOpenEnquire}>
+              <GalleryPage />
+            </PublicLayout>
+          }
+        />
+        <Route
           path="/insights/:slug"
           element={
             <PublicLayout onOpenEnquire={handleOpenEnquire}>
@@ -253,6 +263,7 @@ export default function App() {
           <Route path="capabilities" element={<ManageCapabilities />} />
           <Route path="leadership" element={<ManageLeadership />} />
           <Route path="careers" element={<ManageCareers />} />
+          <Route path="gallery" element={<ManageGallery />} />
           <Route path="enquiries" element={<ManageEnquiries />} />
           <Route path="settings" element={<ManageSettings />} />
         </Route>

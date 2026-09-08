@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Ruler, Layers, Shield, Play, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { getProjects, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function ProjectDetailPage({ onOpenVideo, onOpenEnquire }) {
   const { slug } = useParams();
@@ -14,6 +15,11 @@ export default function ProjectDetailPage({ onOpenVideo, onOpenEnquire }) {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white pt-16 sm:pt-20">
+      <SEO 
+        title={project.title}
+        description={`Kritisha Project: ${project.title}. Connecting Communities. Creating Opportunities.`}
+        image={project.featured_image}
+      />
       {/* 1. HERO HEADER */}
       <section className="relative min-h-[55vh] flex items-center py-16 px-4 sm:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">

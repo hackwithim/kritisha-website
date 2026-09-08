@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock, User, ChevronRight, Share2, Tag, BookOpen, MapPin } from 'lucide-react';
 import { getInsights, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function InsightDetailPage({ onOpenEnquire }) {
   const { slug } = useParams();
@@ -14,6 +15,12 @@ export default function InsightDetailPage({ onOpenEnquire }) {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
+      <SEO 
+        title={article.title}
+        description={article.excerpt}
+        image={article.featured_image}
+        type="article"
+      />
       
       {/* HERO BANNER */}
       <section className="relative min-h-[60vh] flex items-center pt-32 sm:pt-36 pb-16 px-6 sm:px-12 lg:px-16 border-b border-white/10 overflow-hidden">
@@ -47,7 +54,7 @@ export default function InsightDetailPage({ onOpenEnquire }) {
           <div className="flex flex-wrap items-center gap-6 text-xs font-sans-ui text-slate-300 pt-2 border-t border-white/10 max-w-4xl">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4 text-[#C5963D]" />
-              <span>By <strong className="text-white">{article.author || 'Jayant Khalatkar'}</strong> ({article.author_role || 'Managing Director'})</span>
+              <span>By <strong className="text-white">{article.author || 'Kritisha Leadership'}</strong> ({article.author_role || 'Leadership Team'})</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-[#C5963D]" />

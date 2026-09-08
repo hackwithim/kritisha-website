@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Plus, Trash2, Edit, X, UserCheck, ShieldCheck, Upload, Image as ImageIcon, Camera } from 'lucide-react';
 import { getLeadership, addLeadership, updateLeadership, deleteLeadership, useCmsLiveStore, compressImageFile } from '../../lib/cmsStore';
 import ImagePickerInput from '../../components/ImagePickerInput';
+import DeleteConfirmModal from '../../components/admin/DeleteConfirmModal';
+import toast from 'react-hot-toast';
 
 export default function ManageLeadership() {
   const leadership = useCmsLiveStore(getLeadership);
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   const defaultAvatar = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=85';
 
@@ -54,16 +57,17 @@ export default function ManageLeadership() {
     e.preventDefault();
     if (editingItem) {
       updateLeadership(editingItem.id, formData);
+      toast.success('Executive profile updated');
     } else {
       addLeadership(formData);
+      toast.success('Executive profile added');
     }
     setShowModal(false);
   };
 
   const handleDelete = (id) => {
-    if (confirm('Delete this leadership executive profile?')) {
-      deleteLeadership(id);
-    }
+    deleteLeadership(id);
+    toast.success('Executive profile deleted');
   };
 
   return (
@@ -114,7 +118,7 @@ export default function ManageLeadership() {
                 <Edit className="w-4 h-4" />
               </button>
               <button
-                onClick={() => handleDelete(lead.id)}
+                onClick={() => setItemToDelete(lead)}
                 className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                 title="Delete Leadership Profile"
               >
@@ -201,6 +205,13 @@ export default function ManageLeadership() {
           </div>
         </div>
       )}
+
+      <DeleteConfirmModal 
+        isOpen={!!itemToDelete}
+        onClose={() => setItemToDelete(null)}
+        onConfirm={() => itemToDelete && handleDelete(itemToDelete.id)}
+        itemName={itemToDelete?.name}
+      />
     </div>
   );
 }

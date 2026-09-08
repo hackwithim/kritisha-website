@@ -10,7 +10,8 @@ import {
   INITIAL_ENQUIRIES, 
   INITIAL_APPLICATIONS,
   INITIAL_INSIGHTS,
-  INITIAL_TOLL_PLAZAS
+  INITIAL_TOLL_PLAZAS,
+  INITIAL_GALLERY
 } from './mockData';
 
 const STORAGE_KEYS = {
@@ -25,6 +26,7 @@ const STORAGE_KEYS = {
   ENQUIRIES: 'kritisha_v3_enquiries',
   APPLICATIONS: 'kritisha_v3_applications',
   TOLL_PLAZAS: 'kritisha_v3_toll_plazas',
+  GALLERY: 'kritisha_v3_gallery',
   AUTH: 'kritisha_v3_admin_auth',
   ADMIN_PROFILE: 'kritisha_v3_admin_profile'
 };
@@ -147,10 +149,10 @@ export const getSiteSettings = () => {
   if (!settings.logo || settings.logo.includes('photo-1618005182384')) {
     settings.logo = '/logo.svg';
   }
-  if (!settings.company_name || settings.company_name.includes('KCC')) {
+  if (!settings.company_name) {
     settings.company_name = 'KRITISHA Infrastructure Private Limited';
   }
-  if (settings.email && settings.email.includes('kccgroup')) {
+  if (!settings.email) {
     settings.email = 'admin@kritishainfra.com';
   }
   return settings;
@@ -601,6 +603,53 @@ export const resetAllDataToDefaults = () => {
   saveStorage(STORAGE_KEYS.INSIGHTS, INITIAL_INSIGHTS);
   saveStorage(STORAGE_KEYS.ENQUIRIES, INITIAL_ENQUIRIES);
   saveStorage(STORAGE_KEYS.APPLICATIONS, INITIAL_APPLICATIONS);
+  return true;
+}
+
+// ---------------------------------------------------------------------------
+// GALLERY API
+// ---------------------------------------------------------------------------
+
+export function getGallery() {
+  const stored = loadStorage(STORAGE_KEYS.GALLERY, INITIAL_GALLERY);
+  // Reset if any stored image is an unsplash image or vaibhav-shinde (since we removed him from gallery)
+  const needsReset = stored.some(item => item.url && (item.url.includes('unsplash.com') || item.url.includes('vaibhav-shinde')));
+  if (needsReset) {
+    saveGallery(INITIAL_GALLERY);
+    return INITIAL_GALLERY;
+  }
+  return stored;
+}
+
+export function saveGallery(gallery) {
+  saveStorage(STORAGE_KEYS.GALLERY, gallery);
+}
+
+export function addGalleryItem(itemData) {
+  const gallery = getGallery();
+  const newItem = {
+    ...itemData,
+    id: `gal-${Date.now()}`
+  };
+  saveGallery([newItem, ...gallery]);
+  return newItem;
+}
+
+export function updateGalleryItem(id, updateData) {
+  const gallery = getGallery();
+  const index = gallery.findIndex(g => g.id === id);
+  if (index !== -1) {
+    gallery[index] = { ...gallery[index], ...updateData };
+    saveGallery(gallery);
+    return true;
+  }
+  return false;
+}
+
+export function deleteGalleryItem(id) {
+  let gallery = getGallery();
+  gallery = gallery.filter(g => g.id !== id);
+  saveGallery(gallery);
   return true;
 };
 

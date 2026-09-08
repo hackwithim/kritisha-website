@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { getProjects, useCmsLiveStore } from '../lib/cmsStore';
 import TollPlazasDirectory from '../components/TollPlazasDirectory';
+import SEO from '../components/SEO';
 
 export default function WorkPage({ onOpenEnquire, onOpenVideo }) {
 
@@ -14,7 +15,10 @@ export default function WorkPage({ onOpenEnquire, onOpenVideo }) {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
-      
+      <SEO 
+        title="Our Work & Projects"
+        description="Explore KRITISHA's portfolio of landmark sea bridges, high-speed expressways, airport transit hubs, and automated toll plazas across India."
+      />
       {/* ============================================================ */}
       {/* 01 HERO SECTION */}
       {/* ============================================================ */}
@@ -84,13 +88,13 @@ export default function WorkPage({ onOpenEnquire, onOpenVideo }) {
 
 
       {/* ============================================================ */}
-      {/* 08 FINAL CTA */}
+      {/* 03 FINAL CTA */}
       {/* ============================================================ */}
       <section className="bg-[#0B2341] py-16 sm:py-24 px-6 sm:px-12 lg:px-16 border-t border-white/10 text-center relative overflow-hidden">
         <div className="max-w-3xl mx-auto space-y-6 relative z-10">
           <div className="inline-flex items-center gap-3 justify-center">
             <span className="text-[11px] font-sans-ui tracking-[0.2em] text-[#C5963D] font-semibold uppercase">
-              08. GET IN TOUCH
+              03. GET IN TOUCH
             </span>
           </div>
 

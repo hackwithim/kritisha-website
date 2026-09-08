@@ -6,7 +6,7 @@ import { getSiteSettings } from './cmsStore';
 export async function sendEnquiryEmailNotification(enquiryData) {
   try {
     const settings = getSiteSettings();
-    const recipientEmail = settings.notification_email || (settings.email && !settings.email.includes('kccgroup') ? settings.email : 'admin@kritishainfra.com');
+    const recipientEmail = settings.notification_email || (settings.email ? settings.email : 'admin@kritishainfra.com');
     const web3FormsKey = settings.web3forms_key || 'YOUR_WEB3FORMS_ACCESS_KEY'; // Free API key from web3forms.com or custom key
 
     const emailPayload = {

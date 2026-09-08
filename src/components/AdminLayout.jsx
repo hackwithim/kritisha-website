@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { getAdminAuth, logoutAdmin, getEnquiries, getSiteSettings, useCmsLiveStore, getAdminProfile, saveAdminProfile, compressImageFile, getCapabilities, getApplications, getProjects, getServices, getInsights } from '../lib/cmsStore';
 import KritishaLogo from './KritishaLogo';
+import { Toaster } from 'react-hot-toast';
 
 export default function AdminLayout() {
   const location = useLocation();
@@ -66,6 +67,7 @@ export default function AdminLayout() {
     { label: 'Services', path: '/admin/services', icon: Briefcase },
     { label: 'Team', path: '/admin/leadership', icon: Users },
     { label: 'Insights', path: '/admin/insights', icon: Sparkles },
+    { label: 'Gallery', path: '/admin/gallery', icon: ImageIcon },
     { label: 'Careers', path: '/admin/careers', icon: FileText },
     { label: 'Toll Plazas', path: '/admin/toll-plazas', icon: ShieldCheck },
     { label: 'Settings', path: '/admin/settings', icon: Settings },
@@ -92,7 +94,7 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-[#EEF4F9] text-[#0A192F] flex flex-col font-sans-ui selection:bg-[#C5963D] selection:text-white relative pb-28 sm:pb-32">
-      
+      <Toaster position="top-right" toastOptions={{ duration: 3000, style: { fontSize: '14px', borderRadius: '12px' } }} />
       {/* 1. FULL-WIDTH TOP ADMIN HEADER BAR */}
       <header className="bg-white border-b border-slate-200/80 px-6 sm:px-10 py-4 sticky top-0 z-40 shadow-2xs">
         <div className="max-w-[1540px] mx-auto flex items-center justify-between gap-4">

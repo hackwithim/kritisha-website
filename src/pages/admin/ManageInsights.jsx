@@ -18,6 +18,8 @@ import {
 import { Link } from 'react-router-dom';
 import { getInsights, saveInsights, addInsight, updateInsight, deleteInsight, useCmsLiveStore } from '../../lib/cmsStore';
 import ImagePickerInput from '../../components/ImagePickerInput';
+import DeleteConfirmModal from '../../components/admin/DeleteConfirmModal';
+import toast from 'react-hot-toast';
 
 const CATEGORIES = [
   'Infrastructure',
@@ -51,6 +53,7 @@ export default function ManageInsights() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [isEditing, setIsEditing] = useState(false);
+  const [insightToDelete, setInsightToDelete] = useState(null);
 
   const filteredInsights = insights.filter((item) => {
     const matchesSearch = item.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -96,7 +99,7 @@ export default function ManageInsights() {
   const handleSave = (e) => {
     e.preventDefault();
     if (!formData.title || !formData.excerpt) {
-      alert('Please fill in at least the Title and Excerpt.');
+      toast.error('Please fill in at least the Title and Excerpt.');
       return;
     }
 
@@ -109,8 +112,10 @@ export default function ManageInsights() {
     } else {
       if (isEditing) {
         updateInsight(formData.id, formData);
+        toast.success('Insight updated');
       } else {
         addInsight(formData);
+        toast.success('Insight published');
       }
     }
 
@@ -118,9 +123,8 @@ export default function ManageInsights() {
   };
 
   const handleDelete = (id) => {
-    if (confirm('Are you sure you want to delete this insight publication?')) {
-      deleteInsight(id);
-    }
+    deleteInsight(id);
+    toast.success('Insight deleted');
   };
 
   const handleToggleFeatured = (item) => {
@@ -273,9 +277,9 @@ export default function ManageInsights() {
                   <Edit3 className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => handleDelete(item.id)}
+                  onClick={() => setInsightToDelete(item)}
                   className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
-                  title="Delete Article"
+                  title="Delete Insight"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -367,7 +371,7 @@ export default function ManageInsights() {
                     type="text"
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    placeholder="e.g. Jayant M. Khalatkar (Director)"
+                    placeholder="e.g. Kritisha Leadership"
                     className="w-full bg-[#F5F7F9] border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#C5963D]"
                     required
                   />
@@ -495,6 +499,13 @@ export default function ManageInsights() {
           </div>
         </div>
       )}
+
+      <DeleteConfirmModal 
+        isOpen={!!insightToDelete}
+        onClose={() => setInsightToDelete(null)}
+        onConfirm={() => insightToDelete && handleDelete(insightToDelete.id)}
+        itemName={insightToDelete?.title}
+      />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Play, Compass, Building2, Leaf, Users, BarChart2, Plane, Car, Navigation, Eye, CheckSquare, TrendingUp, FileText } from 'lucide-react';
 import { getHomepageStats, getCapabilities, getProjects, getServices, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function HomePage({ onOpenEnquire, onOpenVideo }) {
   const stats = useCmsLiveStore(getHomepageStats);
@@ -50,8 +51,12 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
+      <SEO 
+        title="Home"
+        description="Integrated infrastructure, engineering, operations and consultancy solutions for a more connected, sustainable and prosperous India."
+      />
       {/* ============================================================ */}
-      {/* 1. HERO SECTION (ENLARGED TYPOGRAPHY & VISUALS) */}
+      {/* 01. HERO SECTION (ENLARGED TYPOGRAPHY & VISUALS) */}
       {/* ============================================================ */}
       <section className="relative min-h-screen flex items-center pt-32 sm:pt-36 pb-20 px-6 sm:px-12 lg:px-16 overflow-hidden">
         {/* Background Image */}
@@ -72,21 +77,21 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
           <div className="lg:col-span-8 space-y-6 sm:space-y-7 pr-0 lg:pr-8">
             {/* Eyebrow: 2 Stacked Lines + Gold Bar */}
             <div className="inline-flex items-center gap-4">
-              <div className="flex flex-col text-xs sm:text-sm md:text-base font-sans-ui tracking-[0.26em] text-slate-200 font-semibold uppercase leading-snug">
+              <div className="flex flex-col text-[10px] sm:text-xs font-sans-ui tracking-[0.26em] text-slate-200 font-semibold uppercase leading-snug">
                 <span>INFRASTRUCTURE</span>
                 <span>FOR A BRIGHTER INDIA</span>
               </div>
-              <span className="w-16 h-[2px] bg-[#C5963D]" />
+              <span className="w-12 h-[2px] bg-[#C5963D]" />
             </div>
 
             {/* Main Editorial Title */}
-            <h1 className="font-editorial text-6xl sm:text-7xl lg:text-8xl xl:text-[6.2rem] font-normal tracking-tight text-white leading-[1.05] pt-1">
+            <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.05] pt-1">
               Building <br />
               <span className="text-[#C5963D] font-normal">What's Next.</span>
             </h1>
 
             {/* Description */}
-            <p className="font-sans-ui text-slate-100 text-base sm:text-lg lg:text-xl max-w-xl leading-relaxed font-light drop-shadow-sm pt-2">
+            <p className="font-sans-ui text-slate-200 text-sm sm:text-base max-w-xl leading-relaxed font-light drop-shadow-sm pt-2">
               Integrated infrastructure, engineering, operations and consultancy solutions for a more connected, sustainable and prosperous India.
             </p>
 
@@ -127,7 +132,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 2. IMPACT STRIP (WHITE BACKGROUND WITH 4 STATS + STATEMENT) */}
+      {/* 02. IMPACT STRIP (WHITE BACKGROUND WITH 4 STATS + STATEMENT) */}
       {/* ============================================================ */}
       {/* 
       <section className="bg-white text-[#0B2341] py-8 sm:py-12 px-6 sm:px-12 border-b border-slate-200">
@@ -166,7 +171,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       */}
 
       {/* ============================================================ */}
-      {/* 3. CAPABILITIES SECTION */}
+      {/* 03. CAPABILITIES SECTION */}
       {/* ============================================================ */}
       <section className="bg-[#F5F7F9] text-[#0B2341] py-18 sm:py-28 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
@@ -256,7 +261,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 4. FEATURED PROJECT SECTION (TOP 3 PROJECTS SLIDESHOW) */}
+      {/* 04. FEATURED PROJECT SECTION (TOP 3 PROJECTS SLIDESHOW) */}
       {/* ============================================================ */}
       <section className="bg-[#0B2341] text-white py-18 sm:py-28 px-6 sm:px-12 border-t border-white/10">
         <div className="max-w-7xl mx-auto">
@@ -358,7 +363,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 5. A SUSTAINABLE TOMORROW */}
+      {/* 05. A SUSTAINABLE TOMORROW */}
       {/* ============================================================ */}
       <section className="bg-white text-[#0B2341] py-18 sm:py-28 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
@@ -435,7 +440,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 5.2 JOIN US TODAY SECTION */}
+      {/* 06. JOIN US TODAY SECTION */}
       {/* ============================================================ */}
       <section className="relative min-h-[35vh] sm:min-h-[380px] bg-[#0B2341] text-white py-16 sm:py-20 px-6 sm:px-12 lg:px-16 border-t border-white/10 overflow-hidden flex items-center">
         {/* Background Pattern */}
@@ -505,7 +510,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 5.5 OUR SERVICES SECTION */}
+      {/* 07. OUR SERVICES SECTION */}
       {/* ============================================================ */}
       <section className="bg-[#F8FAFC] text-[#0B2341] py-18 sm:py-28 pl-6 sm:pl-12 lg:pl-16 pr-0 border-t border-slate-200 overflow-hidden w-full">
         <div className="w-full grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-10 items-stretch">
@@ -629,7 +634,7 @@ export default function HomePage({ onOpenEnquire, onOpenVideo }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 6. CALL TO ACTION BANNER */}
+      {/* 08. CALL TO ACTION BANNER */}
       {/* ============================================================ */}
       <section className="bg-[#0B2341] py-18 sm:py-24 px-6 sm:px-12 border-t border-white/10 text-center relative overflow-hidden">
         <div className="max-w-3xl mx-auto space-y-6 relative z-10">

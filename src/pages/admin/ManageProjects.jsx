@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Plus, Trash2, Edit, MapPin, Check, X, FolderKanban, Eye, List, Columns3, LayoutGrid } from 'lucide-react';
 import { getProjects, saveProjects, addProject, updateProject, deleteProject, useCmsLiveStore } from '../../lib/cmsStore';
 import ImagePickerInput from '../../components/ImagePickerInput';
+import DeleteConfirmModal from '../../components/admin/DeleteConfirmModal';
+import toast from 'react-hot-toast';
 
 export default function ManageProjects() {
   const projects = useCmsLiveStore(getProjects);
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
   const [viewMode, setViewMode] = useState('columns'); // 'table' | 'columns'
+  const [projectToDelete, setProjectToDelete] = useState(null);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -66,16 +69,17 @@ export default function ManageProjects() {
     e.preventDefault();
     if (editingProject) {
       updateProject(editingProject.id, formData);
+      toast.success('Project updated successfully');
     } else {
       addProject(formData);
+      toast.success('Project added successfully');
     }
     setShowModal(false);
   };
 
   const handleDelete = (id) => {
-    if (confirm('Are you sure you want to delete this project landmark from the site?')) {
-      deleteProject(id);
-    }
+    deleteProject(id);
+    toast.success('Project deleted');
   };
 
   return (
@@ -169,7 +173,7 @@ export default function ManageProjects() {
                   <Edit className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => handleDelete(proj.id)}
+                  onClick={() => setProjectToDelete(proj)}
                   className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                   title="Delete Project"
                 >
@@ -304,6 +308,13 @@ export default function ManageProjects() {
           </div>
         </div>
       )}
+
+      <DeleteConfirmModal 
+        isOpen={!!projectToDelete}
+        onClose={() => setProjectToDelete(null)}
+        onConfirm={() => projectToDelete && handleDelete(projectToDelete.id)}
+        itemName={projectToDelete?.title}
+      />
     </div>
   );
 }

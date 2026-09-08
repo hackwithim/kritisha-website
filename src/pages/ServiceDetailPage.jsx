@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { getServices, getProjects, useCmsLiveStore } from '../lib/cmsStore';
 import TollPlazasDirectory from '../components/TollPlazasDirectory';
+import SEO from '../components/SEO';
 
 export default function ServiceDetailPage({ onOpenEnquire }) {
   const { slug } = useParams();
@@ -66,9 +67,13 @@ export default function ServiceDetailPage({ onOpenEnquire }) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
+    <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white pt-16 sm:pt-20">
+      <SEO 
+        title={service.title}
+        description={service.description}
+      />
       
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO HEADER */}
       <section className="relative min-h-[60vh] flex items-center pt-32 sm:pt-36 pb-16 px-6 sm:px-12 lg:px-16 border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img

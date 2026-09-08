@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Send, CheckCircle2, ChevronRight } from 'lucide-react';
 import { addEnquiry, getSiteSettings, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function ContactPage() {
   const settings = useCmsLiveStore(getSiteSettings);
@@ -35,6 +36,10 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white pt-28 sm:pt-36 pb-20 px-4 sm:px-8">
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with Kritisha Infrastructure. Our headquarters in Navi Mumbai coordinates operations across India."
+      />
       {/* CONTACT FORM CONTAINER */}
       <section id="contact-form" className="scroll-mt-28">
         <div id="faq" className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden shadow-2xl border border-white/10">

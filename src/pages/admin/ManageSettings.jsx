@@ -505,7 +505,7 @@ export default function ManageSettings() {
                     <input
                       type="email"
                       required
-                      value={settings.notification_email || (settings.email && !settings.email.includes('kccgroup') ? settings.email : 'admin@kritishainfra.com')}
+                      value={settings.notification_email || (settings.email ? settings.email : 'admin@kritishainfra.com')}
                       onChange={(e) => setSettings({ ...settings, notification_email: e.target.value })}
                       placeholder="e.g. yourname@gmail.com or admin@kritishainfra.com"
                       className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D]"

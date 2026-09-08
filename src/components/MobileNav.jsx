@@ -158,6 +158,18 @@ export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
               <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/insights') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
             </Link>
 
+            {/* 5. Gallery */}
+            <Link
+              to="/gallery"
+              onClick={() => handleNavClick('/gallery')}
+              className={`group flex items-center justify-between text-lg sm:text-xl font-editorial transition-colors py-2.5 border-b border-white/5 ${
+                isActive('/gallery') ? 'text-[#C5963D] font-bold' : 'text-slate-200 hover:text-[#C5963D]'
+              }`}
+            >
+              <span>Gallery</span>
+              <ArrowRight className={`w-4 h-4 transition-opacity ${isActive('/gallery') ? 'opacity-100 text-[#C5963D]' : 'opacity-0 group-hover:opacity-100 text-[#C5963D]'}`} />
+            </Link>
+
             {/* 5. Careers */}
             <Link
               to="/careers"

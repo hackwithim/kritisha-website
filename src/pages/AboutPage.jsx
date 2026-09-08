@@ -5,7 +5,9 @@ import {
   ChevronRight, Globe, Mail, CheckCircle2, Cpu, Truck, 
   BarChart3, Layers, Compass, TrendingUp, FileText, Activity, X, Check
 } from 'lucide-react';
+import KritishaLogo from '../components/KritishaLogo';
 import { getProjects, getLeadership, getHomepageStats, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function AboutPage({ onOpenEnquire }) {
   const projects = useCmsLiveStore(getProjects);
@@ -154,12 +156,12 @@ export default function AboutPage({ onOpenEnquire }) {
     {
       id: 'team-6',
       name: 'Ram Hema Dhanke',
-      role: 'DGM – Internal Audit & Vigilance',
-      designation: 'DGM – Internal Audit & Vigilance',
+      role: 'Head - Audit & Vigilance',
+      designation: 'Head - Audit & Vigilance',
       specialty: 'Internal Audit, Vigilance & Compliance',
       bio: 'Responsible for internal audit, vigilance, process review, compliance monitoring, risk identification and structured reporting across projects and operational activities.',
       image: '/images/team/ram-dhanke.jpg',
-      badge: 'DGM Audit & Vigilance',
+      badge: 'Head Audit & Vigilance',
       highlights: [
         'Internal audit',
         'Project inspection',
@@ -170,6 +172,23 @@ export default function AboutPage({ onOpenEnquire }) {
         'Audit observations',
         'Detailed audit reporting',
         'Corrective action monitoring'
+      ]
+    },
+    {
+      id: 'team-7',
+      name: 'Vaibhav Shinde',
+      role: 'Head HR & Admin',
+      designation: 'Head HR & Admin',
+      specialty: 'Human Resources & Administration',
+      bio: 'Leads Human Resources and Administration across the organization, ensuring effective talent management, administrative operations, and organizational development.',
+      image: '/images/team/vaibhav-shinde.jpg',
+      badge: 'Head HR & Admin',
+      highlights: [
+        'Talent Management',
+        'Administrative Operations',
+        'Organizational Development',
+        'Employee Relations',
+        'Policy Formulation'
       ]
     }
   ];
@@ -221,19 +240,22 @@ export default function AboutPage({ onOpenEnquire }) {
 
   // 08. GEOGRAPHIC LOCATIONS
   const verifiedLocations = [
-    { region: 'Nagpur & Vidarbha', role: 'Headquarters, Civil Roads, Irrigation & Sound/Laser Projects', stat: 'HQ Operations' },
-    { region: 'Mumbai & Navi Mumbai', role: 'Kamothe & Kopra Toll Plazas (PWD), Sea Bridge Operations', stat: 'Regional Assets' },
-    { region: 'Pune & Western MH', role: 'Expressway Toll Management, Vigilance & Route Operations', stat: 'Regional Assets' },
-    { region: 'Agra & Mathura (UP)', role: 'Electric Golf Carts & Mass Transit (Agra & Mathura DA)', stat: 'Daily Commuters' },
-    { region: 'Rajasthan & Northern Corridor', role: 'NHAI User Fee Toll Plazas & Manpower Supply (NHIPMPL)', stat: 'Toll Plazas' },
-    { region: 'Kerala, MP & South India', role: 'KSRDC & MPRDC Toll Assets, Cantonment Board Entry Collection', stat: 'Regional Plazas' }
+    { region: 'Maharashtra', role: 'NHAI & State PWD Toll Plazas, Expressway Toll Management', stat: 'Core Operations' },
+    { region: 'Gujarat', role: 'NHAI & R&B Dept Toll Plazas, Route Operations', stat: 'Regional Assets' },
+    { region: 'Punjab & Rajasthan', role: 'NHAI User Fee Toll Plazas & Highway Operations', stat: 'Northern Corridor' },
+    { region: 'Chhattisgarh', role: 'National Highway Toll Management & Maintenance', stat: 'Central Corridor' },
+    { region: 'Jharkhand', role: 'NHAI User Fee Collection & Route Operations', stat: 'Eastern Corridor' },
+    { region: 'Pan-India Network', role: 'Electric Golf Carts, Sound/Laser Projects & Civil Roads', stat: 'Special Projects' }
   ];
 
   const selectedDisciplineObj = disciplines.find(d => d.id === activeDiscipline) || disciplines[0];
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
-      
+      <SEO 
+        title="About Us"
+        description="Learn about Kritisha Infrastructure's legacy, our visionary leadership team, and our commitment to building sustainable infrastructure for India."
+      />
       {/* ============================================================ */}
       {/* 01. IMMERSIVE HERO */}
       {/* ============================================================ */}
@@ -264,13 +286,13 @@ export default function AboutPage({ onOpenEnquire }) {
             </h1>
 
             <p className="font-sans-ui text-slate-200 text-sm sm:text-base leading-relaxed font-light drop-shadow-sm max-w-2xl">
-              From founding in 1985 to becoming a national powerhouse, KRITISHA Infrastructure delivers end-to-end infrastructure, toll operations, and civil engineering excellence across India.
+              As a national powerhouse, KRITISHA Infrastructure delivers end-to-end infrastructure, toll operations, and civil engineering excellence across India.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center gap-6 text-xs font-sans-ui text-slate-300">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#C5963D]" />
-                <span className="text-white font-semibold">1985</span> 40 Years Legacy
+                <span className="text-white font-semibold">Decades of</span> Legacy
               </div>
               <div className="w-1 h-1 rounded-full bg-slate-500" />
               <div className="flex items-center gap-2">
@@ -347,32 +369,32 @@ export default function AboutPage({ onOpenEnquire }) {
               Built around complexity.
             </h2>
             <p className="font-sans-ui text-xs sm:text-sm text-slate-300 max-w-2xl font-light">
-              Founded in 1985 by the late Mr. Hemant Khalatkar and led today by Mr. Jayant Madhavrao Khalatkar, KRITISHA Group has grown over 4 decades into 12-14 specialized companies across national infrastructure.
+              KRITISHA Group has grown into specialized companies across national infrastructure, delivering excellence across multiple disciplines.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 space-y-4 hover:border-[#C5963D] transition-all">
-              <div className="font-editorial text-2xl font-bold text-[#C5963D]">1985 – 2001</div>
+              <div className="font-editorial text-2xl font-bold text-[#C5963D]">Phase I</div>
               <h3 className="font-editorial text-xl font-bold text-white">The Beginning</h3>
               <p className="font-sans-ui text-xs text-slate-300 leading-relaxed font-light">
-                Laid the foundation in the irrigation sector, constructing river canals, dams, and water supply pipework for Vidarbha Irrigation Development Corporation.
+                Laid the foundation in the infrastructure sector, executing vital civil structures and works.
               </p>
             </div>
 
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 space-y-4 hover:border-[#C5963D] transition-all">
-              <div className="font-editorial text-2xl font-bold text-[#C5963D]">2002 – 2012</div>
+              <div className="font-editorial text-2xl font-bold text-[#C5963D]">Phase II</div>
               <h3 className="font-editorial text-xl font-bold text-white">Phase of Transformation</h3>
               <p className="font-sans-ui text-xs text-slate-300 leading-relaxed font-light">
-                Expanded into industrial infrastructure, logistics parks, and power sector partnerships, executing major civil structures in Nagpur and Latur.
+                Expanded into industrial infrastructure, logistics parks, and power sector partnerships.
               </p>
             </div>
 
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 space-y-4 hover:border-[#C5963D] transition-all">
-              <div className="font-editorial text-2xl font-bold text-[#C5963D]">2013 – 2025</div>
+              <div className="font-editorial text-2xl font-bold text-[#C5963D]">Phase III</div>
               <h3 className="font-editorial text-xl font-bold text-white">Period of Ascendancy</h3>
               <p className="font-sans-ui text-xs text-slate-300 leading-relaxed font-light">
-                Pioneered Pan-India user fee toll collection, HAM highway projects, and electric golf cart eco-transit contracts.
+                Pioneered Pan-India user fee toll collection, HAM highway projects, and eco-transit operations.
               </p>
             </div>
           </div>
@@ -484,9 +506,9 @@ export default function AboutPage({ onOpenEnquire }) {
                 className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-[#C5963D] transition-all flex flex-col justify-between cursor-pointer"
               >
                 <div>
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#E2E8F0]">
                     <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B2341] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B2341] via-[#0B2341]/20 to-transparent opacity-90" />
                     <div className="absolute top-4 left-4 bg-[#0B2341]/90 text-[#C5963D] text-[10px] font-sans-ui font-semibold px-3 py-1 rounded-full border border-white/20">
                       {member.badge}
                     </div>

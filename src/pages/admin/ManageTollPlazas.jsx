@@ -251,7 +251,7 @@ export default function ManageTollPlazas() {
                     <option value="M/s MAP Infra">M/s MAP Infra</option>
                     <option value="M/s JRR Infra">M/s JRR Infra</option>
                     <option value="M/s MSP Infra">M/s MSP Infra</option>
-                    <option value="Khalatkar Construction Infra Pvt Ltd">Khalatkar Construction Infra Pvt Ltd</option>
+                    <option value="KRITISHA Infrastructure Private Limited">KRITISHA Infrastructure Private Limited</option>
                   </select>
                 </div>
                 <div>

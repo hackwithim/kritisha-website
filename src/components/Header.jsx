@@ -78,6 +78,7 @@ export default function Header({ onOpenEnquire }) {
     { label: 'Services', path: '/services', hasDropdown: true },
     { label: 'About', path: '/about' },
     { label: 'Insights', path: '/insights' },
+    { label: 'Gallery', path: '/gallery' },
     { label: 'Careers', path: '/careers' },
   ];
 

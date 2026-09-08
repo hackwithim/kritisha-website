@@ -5,6 +5,7 @@ import {
   Mail, Send, CheckCircle2, Shield, Compass, TrendingUp, Layers, FileText
 } from 'lucide-react';
 import { getInsights, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function InsightsPage({ onOpenEnquire }) {
   const allInsights = useCmsLiveStore(getInsights);
@@ -55,6 +56,10 @@ export default function InsightsPage({ onOpenEnquire }) {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
+      <SEO 
+        title="Insights & News"
+        description="Stay updated with Kritisha Infrastructure's latest news, industry insights, and corporate announcements."
+      />
       
       {/* ============================================================ */}
       {/* 01. IMMERSIVE HERO */}
@@ -153,7 +158,7 @@ export default function InsightsPage({ onOpenEnquire }) {
 
               <div className="pt-2 flex items-center justify-between border-t border-slate-200">
                 <div className="text-xs font-sans-ui text-slate-500">
-                  By <span className="font-semibold text-[#0B2341]">{featuredArticle.author || 'Jayant Khalatkar'}</span>
+                  By <span className="font-semibold text-[#0B2341]">{featuredArticle.author || 'Kritisha Leadership'}</span>
                 </div>
 
                 <Link

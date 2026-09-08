@@ -248,13 +248,8 @@ export default function EnquireModal({ isOpen, onClose, initialService = '' }) {
                       >
                         <option value="General Infrastructure Inquiry">General Infrastructure Inquiry</option>
                         <option value="Toll Plaza Management">Toll Plaza Management & FASTag</option>
-                        <option value="Eco Transit & Golf Carts">Eco Transit & Golf Cart Operations</option>
-                        <option value="Highways & HAM Construction">Highways & HAM Infrastructure Construction</option>
                         <option value="Manpower Supply">Infrastructure Manpower Supply</option>
-                        <option value="Dams & Irrigation">Dams, Canals & Irrigation Works</option>
                         <option value="Vigilance & Audits">Vigilance & Revenue Leakage Audits</option>
-                        <option value="Multimedia Laser Shows">Multimedia & Laser Show Project Delivery</option>
-                        <option value="PPP Concession Bidding">PPP & Concession Bidding Consultancy</option>
                       </select>
                       <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 pointer-events-none" />
                     </div>

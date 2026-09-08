@@ -439,12 +439,12 @@ export const INITIAL_LEADERSHIP = [
   { 
     id: "lead-6", 
     name: "Ram Hema Dhanke", 
-    designation: "DGM – Internal Audit & Vigilance", 
-    role: "DGM – Internal Audit & Vigilance",
+    designation: "Head - Audit & Vigilance", 
+    role: "Head - Audit & Vigilance",
     specialty: "Internal Audit, Vigilance & Compliance",
     bio: "Responsible for internal audit, vigilance, process review, compliance monitoring, risk identification and structured reporting across projects and operational activities.",
     image: "/images/team/ram-dhanke.jpg",
-    badge: "DGM Audit & Vigilance",
+    badge: "Head Audit & Vigilance",
     highlights: [
       "Internal audit",
       "Project inspection",
@@ -456,6 +456,23 @@ export const INITIAL_LEADERSHIP = [
       "Detailed audit reporting",
       "Corrective action monitoring"
     ]
+  },
+  {
+    id: "lead-7",
+    name: "Vaibhav Shinde",
+    designation: "Head HR & Admin",
+    role: "Head HR & Admin",
+    specialty: "Human Resources & Administration",
+    bio: "Leads Human Resources and Administration across the organization, ensuring effective talent management, administrative operations, and organizational development.",
+    image: "/images/team/vaibhav-shinde.jpg",
+    badge: "Head HR & Admin",
+    highlights: [
+      "Talent Management",
+      "Administrative Operations",
+      "Organizational Development",
+      "Employee Relations",
+      "Policy Formulation"
+    ]
   }
 ];
 
@@ -465,7 +482,7 @@ export const INITIAL_CAREERS = [
     title: "Senior Toll Plaza Operations Executive",
     slug: "senior-toll-plaza-operations-executive",
     department: "Operations",
-    location: "Navi Mumbai / Pan India",
+    location: "Pan India",
     employment_type: "Full Time",
     experience_range: "5-8 Years",
     status: "Open",
@@ -494,7 +511,7 @@ export const INITIAL_CAREERS = [
     title: "Civil Highway & Structures Engineer",
     slug: "civil-highway-structures-engineer",
     department: "Engineering",
-    location: "Nagpur / Vidarbha",
+    location: "Pan India",
     employment_type: "Full Time",
     experience_range: "4-7 Years",
     status: "Open",
@@ -522,7 +539,7 @@ export const INITIAL_CAREERS = [
     title: "Vigilance & Revenue Audit Specialist",
     slug: "vigilance-revenue-audit-specialist",
     department: "Audit",
-    location: "Navi Mumbai / Nagpur",
+    location: "Pan India",
     employment_type: "Full Time",
     experience_range: "3-6 Years",
     status: "Open",
@@ -550,7 +567,7 @@ export const INITIAL_CAREERS = [
     title: "ITS Systems & ANPR Network Engineer",
     slug: "its-systems-anpr-network-engineer",
     department: "Technology",
-    location: "Navi Mumbai / Remote Site",
+    location: "Pan India / Remote Site",
     employment_type: "Full Time",
     experience_range: "3-5 Years",
     status: "Open",
@@ -576,7 +593,7 @@ export const INITIAL_CAREERS = [
     title: "PPP Project Finance & Bidding Analyst",
     slug: "ppp-project-finance-bidding-analyst",
     department: "Finance",
-    location: "Nagpur HQ",
+    location: "Pan India",
     employment_type: "Full Time",
     experience_range: "2-4 Years",
     status: "Open",
@@ -658,8 +675,9 @@ Multi-Lane Free Flow (MLFF) tolling allows vehicles to pass through toll points 
 3. **Automated Enforcement**: Instant integration with VAHAN databases for real-time overload detection and toll evasion logging.
 
 Under KRITISHA Group's management of toll plazas across various states, integrating automated FASTag lane management has reduced plaza wait times and achieved strict operational SLA compliance.`,
-    author: "Mr. Jayant Madhavrao Khalatkar",
-    author_role: "Managing Director & Founder",
+    author: "Kritisha Leadership",
+    author_role: "Leadership Team",
+    author_avatar: "/logo.svg",
     publish_date: "August 2026",
     read_time: "6 min read",
     is_featured: true,
@@ -707,8 +725,9 @@ WIM systems embedded in approach lanes weigh moving freight trucks without forci
 - **Zero Plaza Bottlenecks**: Compliant trucks proceed uninterrupted; overloaded vehicles are automatically diverted to static weighbridges for official weighing.
 - **Revenue Recovery**: Overload penalty tariffs prescribed by MoRTH are collected electronically at plaza exit gates.
 - **Pavement Preservation**: Reduces asphalt fatigue and extends major overlay intervals by 4-6 years.`,
-    author: "Mr. Nihar Khalatkar",
-    author_role: "Technical Director",
+    author: "Kritisha Operations Team",
+    author_role: "Operations Division",
+    author_avatar: "/logo.svg",
     publish_date: "June 2026",
     read_time: "4 min read",
     is_featured: false,
@@ -814,4 +833,49 @@ export const INITIAL_TOLL_PLAZAS = [
   { id: "toll-16", consortium: "M/s MSP Infra", toll_name: "Umari Toll Plaza", state: "Maharastra", project_stretch: "NH-548D KM 55+615 To KM 137+300", authority: "National Highway Authority Of India", operational_period: "2025-2026", contract_value: 23.00, status: "Ongoing" },
   { id: "toll-17", consortium: "M/s MSP Infra", toll_name: "Usma Toll Plaza", state: "Punjab", project_stretch: "NH-15 from Km112+575 To Km 166+925", authority: "National Highway Authority Of India", operational_period: "2026-2027", contract_value: 66.00, status: "Ongoing" },
   { id: "toll-18", consortium: "M/s MSP Infra", toll_name: "Doli Toll Plaza", state: "Rajasthan", project_stretch: "km 140.000 to km 225.615", authority: "National Highway Authority Of India", operational_period: "2026-2027", contract_value: 26.00, status: "Ongoing" }
+];
+
+export const INITIAL_GALLERY = [
+  {
+    id: "gal-1",
+    url: "/images/hero_bridge.jpg",
+    title: "Highway & Bridge Construction",
+    category: "Projects"
+  },
+  {
+    id: "gal-2",
+    url: "/images/cap_transportation.jpg",
+    title: "Transportation Infrastructure",
+    category: "Projects"
+  },
+  {
+    id: "gal-3",
+    url: "/images/hero_work.jpg",
+    title: "Ground Operations",
+    category: "Operations"
+  },
+  {
+    id: "gal-4",
+    url: "/images/cap_urban.jpg",
+    title: "Urban Development Planning",
+    category: "Facilities"
+  },
+  {
+    id: "gal-5",
+    url: "/images/hero_about.jpg",
+    title: "Corporate Governance",
+    category: "Team"
+  },
+  {
+    id: "gal-6",
+    url: "/images/hero_expertise.jpg",
+    title: "Engineering Expertise",
+    category: "Projects"
+  },
+  {
+    id: "gal-7",
+    url: "/images/hero_insights.jpg",
+    title: "Strategic Insights & Planning",
+    category: "Team"
+  }
 ];

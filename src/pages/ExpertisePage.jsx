@@ -5,15 +5,14 @@ import {
   TrendingUp, FileText, ChevronRight, Shield, Cpu, Truck, BarChart3, 
   CheckCircle2, MapPin, Globe, Mail, Award, Layers, X
 } from 'lucide-react';
-import { getServices, getProjects, getCapabilities, getLeadership, useCmsLiveStore } from '../lib/cmsStore';
+import { getServices, getProjects, getCapabilities, useCmsLiveStore } from '../lib/cmsStore';
+import SEO from '../components/SEO';
 
 export default function ExpertisePage({ onOpenEnquire }) {
   const [activeCategory, setActiveCategory] = useState('All Services');
-  const [selectedMember, setSelectedMember] = useState(null);
   const services = useCmsLiveStore(getServices);
   const projects = useCmsLiveStore(getProjects);
   const capabilities = useCmsLiveStore(getCapabilities);
-  const leadership = useCmsLiveStore(getLeadership);
 
   const categories = ['All Services', 'Transportation', 'Airport Solutions', 'Operations', 'Consultancy'];
 
@@ -33,18 +32,6 @@ export default function ExpertisePage({ onOpenEnquire }) {
     TrendingUp: <TrendingUp className="w-5 h-5 text-[#C5963D]" />,
     FileText: <FileText className="w-5 h-5 text-[#C5963D]" />
   };
-
-  // Dynamic KRITISHA Infrastructure Team Members Data (Live from CMS Store)
-  const teamMembers = (leadership && leadership.length > 0 ? leadership : []).map((item, index) => ({
-    id: item.id || `lead-${index}`,
-    name: item.name,
-    role: item.designation || item.role || 'Executive Leadership',
-    specialty: item.specialty || 'Infrastructure & Operations',
-    bio: item.bio,
-    highlights: item.highlights || [],
-    image: item.image || item.image_url || '/images/team/vinod-jadhav.jpg',
-    badge: item.designation || item.role || 'Executive'
-  }));
 
   // Delivery Framework Steps
   const deliverySteps = [
@@ -72,7 +59,10 @@ export default function ExpertisePage({ onOpenEnquire }) {
 
   return (
     <div className="min-h-screen bg-[#0B2341] text-slate-100 selection:bg-[#C5963D] selection:text-white">
-      
+      <SEO 
+        title="Services & Expertise"
+        description="Comprehensive highway toll management, intelligent traffic systems (ITS), route operations, and specialized engineering services by Kritisha Infrastructure."
+      />
       {/* ============================================================ */}
       {/* 01. EXPERTISE HERO */}
       {/* ============================================================ */}
@@ -317,93 +307,7 @@ export default function ExpertisePage({ onOpenEnquire }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 04. TEAM */}
-      {/* ============================================================ */}
-      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 bg-[#F8FAFC] text-[#0B2341] border-t border-slate-200">
-        <div className="max-w-[1440px] mx-auto space-y-12">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[11px] font-sans-ui tracking-[0.2em] text-[#0B2341] font-bold uppercase">
-                  04. TEAM
-                </span>
-                <span className="w-12 h-[1.5px] bg-[#C5963D]" />
-              </div>
-              <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#0B2341]">
-                The Leadership & Operations Team
-              </h2>
-            </div>
-            <p className="font-sans-ui text-xs sm:text-sm text-slate-500 max-w-md">
-              Senior engineering directors, toll operations specialists, and vigilance auditors steering KRITISHA's asset portfolio.
-            </p>
-          </div>
-
-          {/* 6 Team Member Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member) => (
-              <div
-                key={member.id}
-                onClick={() => setSelectedMember(member)}
-                className="group bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#C5963D]/50 transition-all duration-300 flex flex-col justify-between cursor-pointer"
-              >
-                <div>
-                  {/* Member Image Header */}
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B2341] via-transparent to-transparent opacity-80" />
-                    
-                    <div className="absolute top-4 left-4 bg-[#0B2341]/90 backdrop-blur-md text-[#C5963D] text-[10px] font-sans-ui font-semibold px-3 py-1 rounded-full border border-white/20">
-                      {member.badge}
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 right-4 text-white space-y-0.5">
-                      <h3 className="font-editorial text-2xl font-bold text-white leading-tight">
-                        {member.name}
-                      </h3>
-                      <div className="text-xs font-sans-ui text-[#C5963D] font-medium">
-                        {member.role}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bio & Details */}
-                  <div className="p-6 space-y-3">
-                    <div className="text-[11px] font-sans-ui font-bold text-slate-400 uppercase tracking-wider">
-                      Specialty: <span className="text-[#0B2341]">{member.specialty}</span>
-                    </div>
-                    <p className="font-sans-ui text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
-                      {member.bio}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card Footer Link */}
-                <div className="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
-                  <div className="flex items-center gap-2 text-slate-400">
-                    <Globe className="w-4 h-4 text-slate-400 group-hover:text-[#C5963D] transition-colors" />
-                    <Mail className="w-4 h-4 text-slate-400 group-hover:text-[#C5963D] transition-colors" />
-                  </div>
-                  <button 
-                    onClick={(e) => { e.stopPropagation(); setSelectedMember(member); }}
-                    className="text-[11px] font-sans-ui font-semibold text-[#0B2341] group-hover:text-[#C5963D] transition-colors flex items-center gap-1 cursor-pointer"
-                  >
-                    View Profile <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* 05. HOW WE DELIVER */}
+      {/* 04. HOW WE DELIVER */}
       {/* ============================================================ */}
       <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 bg-[#0B2341] text-white border-t border-white/10">
         <div className="max-w-[1440px] mx-auto space-y-12">
@@ -411,7 +315,7 @@ export default function ExpertisePage({ onOpenEnquire }) {
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-3">
               <span className="text-[11px] font-sans-ui tracking-[0.2em] text-[#C5963D] font-semibold uppercase">
-                05. HOW WE DELIVER
+                04. HOW WE DELIVER
               </span>
             </div>
             <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-white">
@@ -436,7 +340,7 @@ export default function ExpertisePage({ onOpenEnquire }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 06. SELECTED WORK */}
+      {/* 05. SELECTED WORK */}
       {/* ============================================================ */}
       <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 bg-[#F8FAFC] text-[#0B2341] border-t border-slate-200">
         <div className="max-w-[1440px] mx-auto space-y-12">
@@ -445,7 +349,7 @@ export default function ExpertisePage({ onOpenEnquire }) {
             <div className="space-y-3">
               <div className="inline-flex items-center gap-3">
                 <span className="text-[11px] font-sans-ui tracking-[0.2em] text-[#0B2341] font-bold uppercase">
-                  06. SELECTED WORK
+                  05. SELECTED WORK
                 </span>
                 <span className="w-12 h-[1.5px] bg-[#C5963D]" />
               </div>
@@ -499,13 +403,13 @@ export default function ExpertisePage({ onOpenEnquire }) {
       </section>
 
       {/* ============================================================ */}
-      {/* 07. CTA */}
+      {/* 06. CTA */}
       {/* ============================================================ */}
       <section className="bg-gradient-to-b from-[#0B2341] to-[#07172c] py-20 sm:py-28 px-6 sm:px-12 lg:px-16 text-center relative overflow-hidden border-t border-white/10">
         <div className="max-w-3xl mx-auto space-y-6 relative z-10">
           <div className="inline-flex items-center gap-3 justify-center">
             <span className="text-[11px] font-sans-ui tracking-[0.2em] text-[#C5963D] font-semibold uppercase">
-              07. PARTNER WITH US
+              06. PARTNER WITH US
             </span>
           </div>
 
@@ -536,76 +440,6 @@ export default function ExpertisePage({ onOpenEnquire }) {
           </div>
         </div>
       </section>
-
-      {/* LEADERSHIP PROFILE SPECIFICATIONS MODAL */}
-      {selectedMember && (
-        <div 
-          className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
-          onClick={() => setSelectedMember(null)}
-        >
-          <div 
-            className="bg-white text-[#0B2341] max-w-3xl w-full rounded-3xl overflow-hidden shadow-2xl relative flex flex-col md:flex-row border border-slate-200 animate-in fade-in zoom-in duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedMember(null)}
-              className="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-700 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors z-20 shadow-xs"
-              aria-label="Close Profile"
-            >
-              <X className="w-5 h-5 text-slate-700" />
-            </button>
-
-            {/* Left Image Column */}
-            <div className="md:w-5/12 bg-slate-100 relative min-h-[300px] md:min-h-[420px] flex items-center justify-center overflow-hidden">
-              <img
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                className="w-full h-full object-cover object-top"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent md:hidden" />
-            </div>
-
-            {/* Right Details Column */}
-            <div className="md:w-7/12 p-6 sm:p-8 flex flex-col justify-between space-y-5">
-              <div className="space-y-3">
-                <div className="text-xs font-sans-ui font-bold text-[#0B2341] bg-sky-50 px-3 py-1 rounded-full w-fit border border-sky-100">
-                  {selectedMember.role || selectedMember.badge}
-                </div>
-
-                <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-                  {selectedMember.name}
-                </h2>
-
-                <p className="font-sans-ui text-xs sm:text-sm text-slate-600 leading-relaxed font-light">
-                  {selectedMember.bio}
-                </p>
-              </div>
-
-              {selectedMember.highlights && selectedMember.highlights.length > 0 && (
-                <div className="space-y-2.5 pt-4 border-t border-slate-100">
-                  {selectedMember.highlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm font-medium text-slate-800">
-                      <span className="text-emerald-600 font-bold shrink-0 mt-0.5">✓</span>
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="pt-4 flex items-center justify-between border-t border-slate-100 text-xs text-slate-500 font-sans-ui">
-                <span>KRITISHA Executive Profile</span>
-                <button
-                  onClick={() => setSelectedMember(null)}
-                  className="bg-[#0B2341] hover:bg-[#163F68] text-white px-4 py-2 rounded-xl font-semibold transition-all cursor-pointer"
-                >
-                  Close Profile
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );
