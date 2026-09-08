@@ -480,6 +480,20 @@ export default function ManageSettings() {
                       className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D] leading-relaxed"
                     />
                   </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-1.5">Google Analytics (GA4) Measurement ID</label>
+                    <input
+                      type="text"
+                      value={settings.google_analytics_id || ''}
+                      onChange={(e) => setSettings({ ...settings, google_analytics_id: e.target.value })}
+                      placeholder="e.g. G-XXXXXXXXXX"
+                      className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D]"
+                    />
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      Enter your "G-" measurement ID to enable Google Analytics pageview tracking.
+                    </p>
+                  </div>
                 </div>
               </div>
 

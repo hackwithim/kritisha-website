@@ -19,7 +19,8 @@ export const INITIAL_SITE_SETTINGS = {
     twitter: "#",
     instagram: "#",
     youtube: "#"
-  }
+  },
+  google_analytics_id: ""
 };
 
 export const INITIAL_HOMEPAGE_STATS = [

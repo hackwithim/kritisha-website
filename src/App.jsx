@@ -32,10 +32,15 @@ function ScrollToTop() {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     }
+
+    // Track Google Analytics Pageview on Route Change
+    ReactGA.send({ hitType: 'pageview', page: pathname + hash });
   }, [pathname, hash, key]);
 
   return null;
 }
+
+import ReactGA from 'react-ga4';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import EnquireModal from './components/EnquireModal';
@@ -99,6 +104,16 @@ export default function App() {
   const [enquireService, setEnquireService] = useState('');
   const [videoOpen, setVideoOpen] = useState(false);
   const [videoData, setVideoData] = useState({ title: '', url: '' });
+
+  useEffect(() => {
+    // Initialize Google Analytics if an ID is provided in settings
+    import('./lib/cmsStore').then(({ getSiteSettings }) => {
+      const settings = getSiteSettings();
+      if (settings.google_analytics_id && settings.google_analytics_id.startsWith('G-')) {
+        ReactGA.initialize(settings.google_analytics_id);
+      }
+    });
+  }, []);
 
   const handleOpenEnquire = (serviceName = '') => {
     setEnquireService(serviceName);
