@@ -19,16 +19,27 @@ import {
   Clock,
   TrendingUp,
   Zap,
-  ChevronDown
+  ChevronDown,
+  Lock,
+  QrCode
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getSiteSettings, saveSiteSettings, getHomepageStats, saveHomepageStats } from '../../lib/cmsStore';
+import { getSiteSettings, saveSiteSettings, getHomepageStats, saveHomepageStats, getAdminProfile, saveAdminProfile } from '../../lib/cmsStore';
 import ImagePickerInput from '../../components/ImagePickerInput';
+import { QRCodeSVG } from 'qrcode.react';
+import * as OTPAuth from 'otpauth';
 
 export default function ManageSettings() {
   const [settings, setSettings] = useState(getSiteSettings());
   const [stats, setStats] = useState(getHomepageStats());
+  const [adminProfile, setAdminProfile] = useState(getAdminProfile());
   const [saved, setSaved] = useState(false);
+  
+  // 2FA Setup State
+  const [setup2FASecret, setSetup2FASecret] = useState('');
+  const [setup2FAUrl, setSetup2FAUrl] = useState('');
+  const [verify2FACode, setVerify2FACode] = useState('');
+  const [twoFaError, setTwoFaError] = useState('');
   const [activeTab, setActiveTab] = useState('company'); // 'company' | 'hero' | 'metrics' | 'seo'
   const [showProTip, setShowProTip] = useState(true);
   const [showImagePicker, setShowImagePicker] = useState(false);
@@ -38,8 +49,60 @@ export default function ManageSettings() {
     if (e) e.preventDefault();
     saveSiteSettings(settings);
     saveHomepageStats(stats);
+    saveAdminProfile(adminProfile);
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
+  };
+
+  const handleStart2FASetup = () => {
+    let newSecret = new OTPAuth.Secret({ size: 20 });
+    let totp = new OTPAuth.TOTP({
+      issuer: 'Kritisha',
+      label: 'Admin',
+      algorithm: 'SHA1',
+      digits: 6,
+      period: 30,
+      secret: newSecret
+    });
+    setSetup2FASecret(newSecret.base32);
+    setSetup2FAUrl(totp.toString());
+    setVerify2FACode('');
+    setTwoFaError('');
+  };
+
+  const handleVerifyAndEnable2FA = () => {
+    let totp = new OTPAuth.TOTP({
+      issuer: 'Kritisha',
+      label: 'Admin',
+      algorithm: 'SHA1',
+      digits: 6,
+      period: 30,
+      secret: OTPAuth.Secret.fromBase32(setup2FASecret)
+    });
+
+    let delta = totp.validate({ token: verify2FACode, window: 1 });
+    if (delta !== null) {
+      const updatedProfile = { ...adminProfile, is2FAEnabled: true, twoFactorSecret: setup2FASecret };
+      setAdminProfile(updatedProfile);
+      saveAdminProfile(updatedProfile);
+      setSetup2FASecret('');
+      setSetup2FAUrl('');
+      setVerify2FACode('');
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } else {
+      setTwoFaError('Invalid verification code. Please try again.');
+    }
+  };
+
+  const handleDisable2FA = () => {
+    if (window.confirm("Are you sure you want to disable Two-Factor Authentication? Your account will be less secure.")) {
+      const updatedProfile = { ...adminProfile, is2FAEnabled: false, twoFactorSecret: null };
+      setAdminProfile(updatedProfile);
+      saveAdminProfile(updatedProfile);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    }
   };
 
   return (
@@ -204,6 +267,19 @@ export default function ManageSettings() {
         >
           <Sliders className={`w-4 h-4 ${activeTab === 'seo' ? 'text-[#C5963D]' : 'text-slate-400'}`} />
           <span>SEO & Integrations</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('security')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+            activeTab === 'security'
+              ? 'bg-rose-50 text-rose-700 border border-rose-200 shadow-2xs'
+              : 'text-slate-600 hover:bg-slate-50'
+          }`}
+        >
+          <Lock className={`w-4 h-4 ${activeTab === 'security' ? 'text-rose-600' : 'text-slate-400'}`} />
+          <span>Security & 2FA</span>
         </button>
       </div>
 
@@ -571,6 +647,110 @@ export default function ManageSettings() {
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* SECTION 5: SECURITY & 2FA CARD */}
+          {activeTab === 'security' && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-2xs space-y-6">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200">
+                  <Lock className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <h3 className="font-editorial text-xl font-bold text-[#0B2341]">Two-Factor Authentication (2FA)</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Enhance your admin account security by requiring a 6-digit code from your authenticator app during login.
+                  </p>
+                </div>
+              </div>
+
+              {!adminProfile?.is2FAEnabled ? (
+                <div className="space-y-5">
+                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                    <h4 className="text-sm font-semibold text-slate-700">Enable 2FA</h4>
+                    
+                    {!setup2FAUrl ? (
+                      <button
+                        type="button"
+                        onClick={handleStart2FASetup}
+                        className="px-4 py-2 bg-[#0B2341] hover:bg-[#163F68] text-white text-xs font-semibold rounded-xl transition-colors cursor-pointer"
+                      >
+                        Start Setup
+                      </button>
+                    ) : (
+                      <div className="space-y-4 animate-in fade-in duration-300">
+                        <p className="text-xs text-slate-600">
+                          1. Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.):
+                        </p>
+                        <div className="bg-white p-3 rounded-xl border border-slate-200 inline-block">
+                          <QRCodeSVG value={setup2FAUrl} size={150} level="H" />
+                        </div>
+                        <p className="text-[10px] text-slate-500 font-mono">
+                          Secret Key: {setup2FASecret}
+                        </p>
+
+                        <div className="pt-2">
+                          <p className="text-xs text-slate-600 mb-2">
+                            2. Enter the 6-digit code generated by your app to verify and enable 2FA:
+                          </p>
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="text"
+                              maxLength={6}
+                              value={verify2FACode}
+                              onChange={(e) => setVerify2FACode(e.target.value.replace(/\D/g, ''))}
+                              placeholder="000000"
+                              className="w-32 bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-mono tracking-widest text-center focus:outline-none focus:border-[#C5963D]"
+                            />
+                            <button
+                              type="button"
+                              onClick={handleVerifyAndEnable2FA}
+                              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition-colors cursor-pointer"
+                            >
+                              Verify & Enable
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSetup2FAUrl('');
+                                setSetup2FASecret('');
+                                setVerify2FACode('');
+                                setTwoFaError('');
+                              }}
+                              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors cursor-pointer"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                          {twoFaError && (
+                            <p className="text-xs text-rose-600 mt-2 font-medium">{twoFaError}</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-semibold text-emerald-800 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4" />
+                      2FA is Currently Enabled
+                    </h4>
+                    <p className="text-xs text-emerald-600 mt-1">
+                      Your account is protected. You will be asked for a 6-digit code every time you log in.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleDisable2FA}
+                    className="px-4 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-semibold rounded-xl transition-colors cursor-pointer"
+                  >
+                    Disable 2FA
+                  </button>
+                </div>
+              )}
             </div>
           )}
 

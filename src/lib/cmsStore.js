@@ -667,7 +667,9 @@ export const getAdminProfile = () => loadStorage(STORAGE_KEYS.ADMIN_PROFILE, {
   name: 'KRITISHA Admin',
   emailHash: 'a50db93db82cffc280834f74ad86e2a72214325460450ab015469cda11af7760', // admin@kritishainfra.com
   password: '08e087bbe6fb4a014076246dbb60868e84663ebcf6a9c767e5ba987e82db26f2', // Kritisha@Admin2026
-  avatar: null
+  avatar: null,
+  is2FAEnabled: false,
+  twoFactorSecret: null
 });
 
 export const saveAdminProfile = (profile) => {
@@ -704,12 +706,36 @@ export const getAdminAuth = () => {
 
 export const setAdminAuth = (authData) => saveStorage(STORAGE_KEYS.AUTH, authData);
 
-export const loginAdmin = async (email, password) => {
+export const loginAdmin = async (email, password, totpToken = null) => {
   const profile = getAdminProfile();
   const hashedPassword = await hashPassword(password);
   const hashedEmail = await hashPassword(email.toLowerCase());
   
   if ((hashedEmail === profile.emailHash || email === profile.email) && hashedPassword === profile.password) {
+    
+    // Check if 2FA is enabled and required
+    if (profile.is2FAEnabled) {
+      if (!totpToken) {
+        return { success: true, requires2FA: true };
+      } else {
+        // We import it dynamically here or statically at the top. Let's do it dynamically.
+        const OTPAuth = await import('otpauth');
+        let totp = new OTPAuth.TOTP({
+          issuer: 'Kritisha',
+          label: 'Admin',
+          algorithm: 'SHA1',
+          digits: 6,
+          period: 30,
+          secret: profile.twoFactorSecret
+        });
+
+        let delta = totp.validate({ token: totpToken, window: 1 });
+        if (delta === null) {
+          return { success: false, message: 'Invalid 2FA code. Please try again.' };
+        }
+      }
+    }
+
     const authState = {
       isAuthenticated: true,
       expiresAt: Date.now() + SESSION_TIMEOUT_MS,
@@ -720,9 +746,9 @@ export const loginAdmin = async (email, password) => {
       }
     };
     setAdminAuth(authState);
-    return { success: true, authState };
+    return { success: true, requires2FA: false };
   }
-  return { success: false, message: 'Invalid credentials.' };
+  return { success: false, message: 'Invalid email or password' };
 };
 
 export const logoutAdmin = () => {

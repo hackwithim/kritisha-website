@@ -7,12 +7,19 @@ import KritishaLogo from '../components/KritishaLogo';
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [totpCode, setTotpCode] = useState('');
+  const [requires2FA, setRequires2FA] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await loginAdmin(email, password);
+    const res = await loginAdmin(email, password, requires2FA ? totpCode : null);
+    if (res.requires2FA) {
+      setRequires2FA(true);
+      setErrorMsg('');
+      return;
+    }
     if (res.success) {
       navigate('/admin');
     } else {
@@ -47,40 +54,63 @@ export default function AdminLogin() {
         )}
 
         <form onSubmit={handleLogin} className="space-y-4 text-xs">
-          <div>
-            <label className="block font-medium text-slate-700 mb-1.5">Admin Email</label>
-            <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D] focus:ring-1 focus:ring-[#C5963D] transition-all"
-              />
-            </div>
-          </div>
+          {!requires2FA ? (
+            <>
+              <div>
+                <label className="block font-medium text-slate-700 mb-1.5">Admin Email</label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D] focus:ring-1 focus:ring-[#C5963D] transition-all"
+                  />
+                </div>
+              </div>
 
-          <div>
-            <label className="block font-medium text-slate-700 mb-1.5">Password</label>
-            <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D] focus:ring-1 focus:ring-[#C5963D] transition-all"
-              />
+              <div>
+                <label className="block font-medium text-slate-700 mb-1.5">Password</label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D] focus:ring-1 focus:ring-[#C5963D] transition-all"
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="animate-in fade-in duration-300">
+              <label className="block font-medium text-slate-700 mb-1.5">6-Digit Authenticator Code</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="text"
+                  required
+                  maxLength={6}
+                  value={totpCode}
+                  onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, ''))}
+                  placeholder="000000"
+                  className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-lg tracking-widest text-center text-slate-800 focus:outline-none focus:border-[#C5963D] focus:ring-1 focus:ring-[#C5963D] transition-all font-mono"
+                />
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2 text-center">
+                Open your authenticator app to view your 2FA code.
+              </p>
             </div>
-          </div>
+          )}
 
           <div className="pt-2">
             <button
               type="submit"
               className="w-full py-3.5 bg-[#0B2341] hover:bg-[#163F68] active:scale-[0.99] text-white font-semibold text-sm rounded-xl flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-md"
             >
-              <span>Sign In to Dashboard</span>
+              <span>{requires2FA ? "Verify & Sign In" : "Continue to Verify"}</span>
               <ArrowRight className="w-4 h-4 text-[#C5963D]" />
             </button>
           </div>
