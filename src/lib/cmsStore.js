@@ -665,7 +665,7 @@ export async function hashPassword(password) {
 
 export const getAdminProfile = () => loadStorage(STORAGE_KEYS.ADMIN_PROFILE, {
   name: 'KRITISHA Admin',
-  email: 'admin@kritishainfra.com',
+  emailHash: 'a50db93db82cffc280834f74ad86e2a72214325460450ab015469cda11af7760', // admin@kritishainfra.com
   password: '08e087bbe6fb4a014076246dbb60868e84663ebcf6a9c767e5ba987e82db26f2', // Kritisha@Admin2026
   avatar: null
 });
@@ -673,7 +673,7 @@ export const getAdminProfile = () => loadStorage(STORAGE_KEYS.ADMIN_PROFILE, {
 export const saveAdminProfile = (profile) => {
   saveStorage(STORAGE_KEYS.ADMIN_PROFILE, profile);
   // Also update current session if logged in
-  const auth = getAdminAuth();
+  const auth = loadStorage(STORAGE_KEYS.AUTH, { isAuthenticated: false, user: null });
   if (auth.isAuthenticated) {
     auth.user = {
       ...auth.user,
@@ -685,18 +685,35 @@ export const saveAdminProfile = (profile) => {
   }
 };
 
-export const getAdminAuth = () => loadStorage(STORAGE_KEYS.AUTH, { isAuthenticated: false, user: null });
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
+
+export const getAdminAuth = () => {
+  const auth = loadStorage(STORAGE_KEYS.AUTH, { isAuthenticated: false, user: null });
+  if (auth.isAuthenticated) {
+    if (auth.expiresAt && Date.now() > auth.expiresAt) {
+      // Session expired
+      saveStorage(STORAGE_KEYS.AUTH, { isAuthenticated: false, user: null });
+      return { isAuthenticated: false, user: null };
+    }
+    // Extend session automatically on active use
+    auth.expiresAt = Date.now() + SESSION_TIMEOUT_MS;
+    saveStorage(STORAGE_KEYS.AUTH, auth);
+  }
+  return auth;
+};
+
 export const setAdminAuth = (authData) => saveStorage(STORAGE_KEYS.AUTH, authData);
 
 export const loginAdmin = async (email, password) => {
   const profile = getAdminProfile();
   const hashedPassword = await hashPassword(password);
+  const hashedEmail = await hashPassword(email.toLowerCase());
   
-  if (email === profile.email && hashedPassword === profile.password) {
+  if ((hashedEmail === profile.emailHash || email === profile.email) && hashedPassword === profile.password) {
     const authState = {
       isAuthenticated: true,
+      expiresAt: Date.now() + SESSION_TIMEOUT_MS,
       user: {
-        email: profile.email,
         name: profile.name,
         role: 'Superadmin',
         avatar: profile.avatar
