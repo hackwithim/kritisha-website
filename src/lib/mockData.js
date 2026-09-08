@@ -20,7 +20,7 @@ export const INITIAL_SITE_SETTINGS = {
     instagram: "#",
     youtube: "#"
   },
-  google_analytics_id: ""
+  google_analytics_id: "G-NH93ES619K"
 };
 
 export const INITIAL_HOMEPAGE_STATS = [
