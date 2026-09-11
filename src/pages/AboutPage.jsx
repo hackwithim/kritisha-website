@@ -68,12 +68,12 @@ export default function AboutPage({ onOpenEnquire }) {
     {
       id: 'team-1',
       name: 'Vinod A. Jadhav',
-      role: 'Director',
-      designation: 'Director',
+      role: 'Managing Director (MD)',
+      designation: 'Managing Director (MD)',
       specialty: 'Strategic Business & Governance',
       bio: 'Provides strategic leadership and overall direction to the organization, with focus on business growth, client relationships, operational discipline and long-term infrastructure opportunities.',
       image: '/images/team/vinod-jadhav.jpg',
-      badge: 'Director',
+      badge: 'Managing Director (MD)',
       highlights: [
         'Strategic business leadership',
         'Client and stakeholder coordination',

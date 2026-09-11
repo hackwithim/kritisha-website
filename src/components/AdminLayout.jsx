@@ -46,6 +46,22 @@ export default function AdminLayout() {
   const fileInputRef = useRef(null);
   const searchRef = useRef(null);
 
+  // --- Auth Guard: redirect to login if session is expired or not authenticated ---
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      navigate('/admin/login', { replace: true });
+      return;
+    }
+    // Periodically re-check session every 30 seconds to catch inactivity expiry
+    const interval = setInterval(() => {
+      const currentAuth = getAdminAuth();
+      if (!currentAuth.isAuthenticated) {
+        navigate('/admin/login', { replace: true });
+      }
+    }, 30_000);
+    return () => clearInterval(interval);
+  }, [auth.isAuthenticated, navigate]);
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -58,6 +74,9 @@ export default function AdminLayout() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Don't render anything while redirecting unauthenticated users
+  if (!auth.isAuthenticated) return null;
 
   const navItems = [
     { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
