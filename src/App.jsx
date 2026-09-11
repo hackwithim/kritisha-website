@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 function ScrollToTop() {
   const { pathname, hash, key } = useLocation();
@@ -79,10 +79,32 @@ import ManageTollPlazas from './pages/admin/ManageTollPlazas';
 import { getAdminAuth } from './lib/cmsStore';
 
 function ProtectedAdminRoute({ children }) {
-  const auth = getAdminAuth();
-  if (!auth.isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
-  }
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(() => getAdminAuth().isAuthenticated);
+
+  useEffect(() => {
+    // Re-check auth whenever localStorage changes (other tabs, session clear, etc.)
+    const checkAuth = () => {
+      const auth = getAdminAuth();
+      setIsAuthenticated(auth.isAuthenticated);
+      if (!auth.isAuthenticated) {
+        navigate('/admin/login', { replace: true });
+      }
+    };
+
+    // Check every 30 seconds to catch inactivity expiry
+    const interval = setInterval(checkAuth, 30_000);
+    window.addEventListener('storage', checkAuth);
+    window.addEventListener('kritisha_cms_updated', checkAuth);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', checkAuth);
+      window.removeEventListener('kritisha_cms_updated', checkAuth);
+    };
+  }, [navigate]);
+
+  if (!isAuthenticated) return null;
   return children;
 }
 
