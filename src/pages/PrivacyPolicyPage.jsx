@@ -51,6 +51,8 @@ export default function PrivacyPolicyPage() {
             <br />
             <strong>Email:</strong> info@kritishainfra.com
             <br />
+            <strong>Phone:</strong> +91 93728 23019
+            <br />
             <strong>Address:</strong> Office No. 319, Commodity Exchange Bldg, Plot No. 2,3,4, Sector 19, Vashi, Navi Mumbai – 400705, Maharashtra, India
           </p>
         </div>

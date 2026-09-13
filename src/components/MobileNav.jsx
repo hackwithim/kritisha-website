@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X, ArrowRight, ChevronDown, Phone, Mail, MapPin, Sparkles } from 'lucide-react';
+import { getSiteSettings, useCmsLiveStore } from '../lib/cmsStore';
 import KritishaLogo from './KritishaLogo';
 
 export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
   const [isServicesExpanded, setIsServicesExpanded] = useState(false);
   const location = useLocation();
+  const settings = useCmsLiveStore(getSiteSettings);
 
   if (!isOpen) return null;
 
@@ -216,7 +218,9 @@ export default function MobileNav({ isOpen, onClose, onOpenEnquire }) {
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-[#C5963D] shrink-0" />
-              <span>+91 7678050277</span>
+              <a href={`tel:${(settings?.phone || '+91 93728 23019').replace(/\s+/g, '')}`} className="hover:text-[#C5963D] transition-colors font-mono">
+                {settings?.phone || '+91 93728 23019'}
+              </a>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#C5963D] shrink-0" />

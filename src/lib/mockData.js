@@ -9,7 +9,7 @@ export const INITIAL_SITE_SETTINGS = {
   hero_title_2: "Critical Infrastructure.",
   hero_description: "KRITISHA Infrastructure Private Limited delivers dependable operational, manpower and infrastructure solutions across toll plazas, airport operations and parking, Ropeway operations, surveillance, project audit, reporting and professional consultancy.",
   address: "Office No. 319, Commodity Exchange Building, Sector 19, Vashi, Navi Mumbai, Maharashtra",
-  phone: "+91 7678050277",
+  phone: "+91 93728 23019",
   email: "info@kritishainfra.com",
   website: "www.kritishainfra.com",
   rebrand_note: "KK Enterprises — Now known as KRITISHA Infrastructure",
@@ -351,6 +351,7 @@ export const INITIAL_PROJECTS = [
 export const INITIAL_LEADERSHIP = [
   { 
     id: "lead-1", 
+    slug: "vinod-jadhav",
     name: "Vinod A. Jadhav", 
     designation: "Managing Director (MD)", 
     role: "Managing Director (MD)",
@@ -368,6 +369,7 @@ export const INITIAL_LEADERSHIP = [
   },
   { 
     id: "lead-2", 
+    slug: "shital-jadhav",
     name: "Shital V. Jadhav", 
     designation: "Director", 
     role: "Director",
@@ -385,6 +387,7 @@ export const INITIAL_LEADERSHIP = [
   },
   { 
     id: "lead-3", 
+    slug: "ajeet-sindhe",
     name: "Ajeet Sindhe", 
     designation: "Chief Financial Officer", 
     role: "Chief Financial Officer",
@@ -403,6 +406,7 @@ export const INITIAL_LEADERSHIP = [
   },
   { 
     id: "lead-4", 
+    slug: "shard-bhor",
     name: "Shard D. Bhor", 
     designation: "Chief Operating Officer", 
     role: "Chief Operating Officer",
@@ -421,6 +425,7 @@ export const INITIAL_LEADERSHIP = [
   },
   { 
     id: "lead-5", 
+    slug: "ramkishor-bana",
     name: "Ramkishor Bana", 
     designation: "IT Head", 
     role: "IT Head",
@@ -439,6 +444,7 @@ export const INITIAL_LEADERSHIP = [
   },
   { 
     id: "lead-6", 
+    slug: "ram-dhanke",
     name: "Ram Hema Dhanke", 
     designation: "Head - Audit & Vigilance", 
     role: "Head - Audit & Vigilance",
@@ -460,6 +466,7 @@ export const INITIAL_LEADERSHIP = [
   },
   {
     id: "lead-7",
+    slug: "vaibhav-shinde",
     name: "Vaibhav Shinde",
     designation: "Head HR & Admin",
     role: "Head HR & Admin",

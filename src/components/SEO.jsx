@@ -29,6 +29,12 @@ export default function SEO({
       "addressLocality": "Navi Mumbai",
       "addressRegion": "Maharashtra",
       "addressCountry": "IN"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91 93728 23019",
+      "contactType": "customer service",
+      "areaServed": "IN"
     }
   };
 

@@ -155,6 +155,9 @@ export const getSiteSettings = () => {
   if (!settings.email) {
     settings.email = 'admin@kritishainfra.com';
   }
+  if (!settings.phone || settings.phone === '+91 7678050277' || settings.phone === '+91 9021904161' || settings.phone === '+91 76780 50277') {
+    settings.phone = '+91 93728 23019';
+  }
   return settings;
 };
 export const saveSiteSettings = (settings) => {
@@ -452,9 +455,13 @@ export const getLeadership = () => {
       if (!img || img.includes('unsplash.com')) {
         img = match.image || '/images/team/vinod-jadhav.jpg';
       }
+      const memberId = item.id || match.id || `lead-${idx + 1}`;
+      const memberSlug = item.slug || match.slug || (item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       return {
         ...match,
         ...item,
+        id: memberId,
+        slug: memberSlug,
         name: item.name || match.name,
         designation: item.designation || match.designation,
         bio: item.bio || match.bio,
@@ -467,10 +474,23 @@ export const getLeadership = () => {
 };
 export const saveLeadership = (lead) => saveStorage(STORAGE_KEYS.LEADERSHIP, lead);
 
+export const getLeadershipMemberById = (idOrSlug) => {
+  if (!idOrSlug) return null;
+  const list = getLeadership();
+  const search = String(idOrSlug).toLowerCase().trim();
+  return list.find(m => 
+    (m.id && m.id.toLowerCase() === search) || 
+    (m.slug && m.slug.toLowerCase() === search) ||
+    ((m.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-') === search)
+  ) || null;
+};
+
 export const addLeadership = (person) => {
   const current = getLeadership();
+  const slug = (person.slug || person.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   const newPerson = {
-    id: `lead-${Date.now()}`,
+    id: person.id ? person.id.trim() : (slug ? `lead-${slug}` : `lead-${Date.now()}`),
+    slug: slug || `lead-${Date.now()}`,
     image: person.image || '/images/hero_about.jpg',
     ...person
   };

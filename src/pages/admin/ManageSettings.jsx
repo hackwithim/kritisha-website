@@ -360,7 +360,7 @@ export default function ManageSettings() {
                     required
                     value={settings.phone}
                     onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                    placeholder="+91 9021904161 / 0712-2724493"
+                    placeholder="+91 93728 23019"
                     className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#C5963D] focus:bg-white transition-colors"
                   />
                 </div>
@@ -628,7 +628,7 @@ export default function ManageSettings() {
                           name: 'Demo Client (Test)',
                           company: 'KRITISHA Infrastructure Test Corp',
                           email: settings.notification_email || settings.email || 'test@example.com',
-                          phone: '+91 9021904161',
+                          phone: settings.phone || '+91 93728 23019',
                           service_interest: 'Toll Plaza Management & FASTag',
                           message: 'This is a test notification email from your KRITISHA Website CMS to verify Gmail delivery.',
                           created_at: new Date().toISOString()

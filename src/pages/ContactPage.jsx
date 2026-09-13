@@ -193,8 +193,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white text-xs uppercase tracking-wider font-sans-ui mb-1">Phone</h4>
-                    <a href={`tel:${settings.phone || '+91 7678050277'}`} className="hover:text-[#C5963D] transition-colors font-mono">
-                      {settings.phone || '+91 7678050277'}
+                    <a href={`tel:${(settings.phone || '+91 93728 23019').replace(/\s+/g, '')}`} className="hover:text-[#C5963D] transition-colors font-mono">
+                      {settings.phone || '+91 93728 23019'}
                     </a>
                   </div>
                 </div>

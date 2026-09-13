@@ -64,9 +64,11 @@ export default function AboutPage({ onOpenEnquire }) {
   ];
 
   // 05. OFFICIAL LEADERSHIP TEAM (Live from CMS Store)
+  // 05. OFFICIAL LEADERSHIP TEAM (Live from CMS Store)
   const defaultLeadershipList = [
     {
-      id: 'team-1',
+      id: 'lead-1',
+      slug: 'vinod-jadhav',
       name: 'Vinod A. Jadhav',
       role: 'Managing Director (MD)',
       designation: 'Managing Director (MD)',
@@ -83,7 +85,8 @@ export default function AboutPage({ onOpenEnquire }) {
       ]
     },
     {
-      id: 'team-2',
+      id: 'lead-2',
+      slug: 'shital-jadhav',
       name: 'Shital V. Jadhav',
       role: 'Director',
       designation: 'Director',
@@ -100,7 +103,8 @@ export default function AboutPage({ onOpenEnquire }) {
       ]
     },
     {
-      id: 'team-3',
+      id: 'lead-3',
+      slug: 'ajeet-sindhe',
       name: 'Ajeet Sindhe',
       role: 'Chief Financial Officer',
       designation: 'Chief Financial Officer',
@@ -118,7 +122,8 @@ export default function AboutPage({ onOpenEnquire }) {
       ]
     },
     {
-      id: 'team-4',
+      id: 'lead-4',
+      slug: 'shard-bhor',
       name: 'Shard D. Bhor',
       role: 'Chief Operating Officer',
       designation: 'Chief Operating Officer',
@@ -136,7 +141,8 @@ export default function AboutPage({ onOpenEnquire }) {
       ]
     },
     {
-      id: 'team-5',
+      id: 'lead-5',
+      slug: 'ramkishor-bana',
       name: 'Ramkishor Bana',
       role: 'IT Head',
       designation: 'IT Head',
@@ -154,7 +160,8 @@ export default function AboutPage({ onOpenEnquire }) {
       ]
     },
     {
-      id: 'team-6',
+      id: 'lead-6',
+      slug: 'ram-dhanke',
       name: 'Ram Hema Dhanke',
       role: 'Head - Audit & Vigilance',
       designation: 'Head - Audit & Vigilance',
@@ -175,7 +182,8 @@ export default function AboutPage({ onOpenEnquire }) {
       ]
     },
     {
-      id: 'team-7',
+      id: 'lead-7',
+      slug: 'vaibhav-shinde',
       name: 'Vaibhav Shinde',
       role: 'Head HR & Admin',
       designation: 'Head HR & Admin',
@@ -202,8 +210,11 @@ export default function AboutPage({ onOpenEnquire }) {
       img = match ? match.image : '/images/team/vinod-jadhav.jpg';
     }
     const matchObj = defaultLeadershipList.find(d => (d.name || '').toLowerCase() === (item.name || '').toLowerCase() || d.id === item.id) || {};
+    const memberId = item.id || matchObj.id || `lead-${index + 1}`;
+    const memberSlug = item.slug || matchObj.slug || (item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     return {
-      id: item.id || `lead-${index}`,
+      id: memberId,
+      slug: memberSlug,
       name: item.name,
       role: item.designation || item.role || 'Executive Leadership',
       specialty: item.specialty || matchObj.specialty || 'Infrastructure & Operations',
@@ -213,6 +224,34 @@ export default function AboutPage({ onOpenEnquire }) {
       badge: item.designation || item.role || 'Executive'
     };
   });
+
+  // Deep-link support: Auto-scroll & open modal when URL has #lead-id or ?member=lead-id
+  React.useEffect(() => {
+    const checkDeepLink = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetParam = urlParams.get('member') || window.location.hash.replace('#', '');
+      if (targetParam && teamMembers.length > 0) {
+        const targetClean = targetParam.toLowerCase().trim();
+        const target = teamMembers.find(m => 
+          (m.id && m.id.toLowerCase() === targetClean) ||
+          (m.slug && m.slug.toLowerCase() === targetClean) ||
+          ((m.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-') === targetClean)
+        );
+        if (target) {
+          setSelectedMember(target);
+          setTimeout(() => {
+            const el = document.getElementById(target.id) || (target.slug && document.getElementById(target.slug));
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 350);
+        }
+      }
+    };
+    checkDeepLink();
+    window.addEventListener('hashchange', checkDeepLink);
+    return () => window.removeEventListener('hashchange', checkDeepLink);
+  }, [teamMembers]);
 
   // 06. WHAT WE BELIEVE (4 LARGE EDITORIAL STATEMENTS)
   const beliefs = [
@@ -502,15 +541,20 @@ export default function AboutPage({ onOpenEnquire }) {
             {teamMembers.map((member) => (
               <div 
                 key={member.id} 
+                id={member.id}
                 onClick={() => setSelectedMember(member)}
-                className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-[#C5963D] transition-all flex flex-col justify-between cursor-pointer"
+                className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-[#C5963D] transition-all flex flex-col justify-between cursor-pointer scroll-mt-28 relative"
               >
+                {member.slug && <span id={member.slug} className="absolute -top-28" />}
                 <div>
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#E2E8F0]">
                     <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B2341] via-[#0B2341]/20 to-transparent opacity-90" />
                     <div className="absolute top-4 left-4 bg-[#0B2341]/90 text-[#C5963D] text-[10px] font-sans-ui font-semibold px-3 py-1 rounded-full border border-white/20">
                       {member.badge}
+                    </div>
+                    <div className="absolute top-4 right-4 bg-[#0B2341]/85 backdrop-blur-xs text-slate-300 font-mono text-[10px] px-2.5 py-0.5 rounded-full border border-white/15">
+                      #{member.id}
                     </div>
                     <div className="absolute bottom-4 left-4 right-4 text-white space-y-0.5">
                       <h3 className="font-editorial text-2xl font-bold text-white leading-tight">{member.name}</h3>
@@ -855,8 +899,13 @@ export default function AboutPage({ onOpenEnquire }) {
             {/* Right Details Column */}
             <div className="md:w-7/12 p-6 sm:p-8 flex flex-col justify-between space-y-5">
               <div className="space-y-3">
-                <div className="text-xs font-sans-ui font-bold text-[#0B2341] bg-sky-50 px-3 py-1 rounded-full w-fit border border-sky-100">
-                  {selectedMember.role || selectedMember.badge}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="text-xs font-sans-ui font-bold text-[#0B2341] bg-sky-50 px-3 py-1 rounded-full w-fit border border-sky-100">
+                    {selectedMember.role || selectedMember.badge}
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
+                    ID: {selectedMember.id}
+                  </span>
                 </div>
 
                 <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">

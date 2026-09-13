@@ -140,8 +140,8 @@ export default function Footer({ onOpenEnquire = () => {} }) {
               {/* Phone */}
               <div className="flex items-center gap-2.5 text-xs text-slate-300 font-sans-ui">
                 <Phone className="w-3.5 h-3.5 text-[#C5963D] shrink-0" />
-                <a href="tel:+917678050277" className="hover:text-[#C5963D] transition-colors font-mono">
-                  +91 7678050277
+                <a href={`tel:${(settings?.phone || '+91 93728 23019').replace(/\s+/g, '')}`} className="hover:text-[#C5963D] transition-colors font-mono">
+                  {settings?.phone || '+91 93728 23019'}
                 </a>
               </div>
 
