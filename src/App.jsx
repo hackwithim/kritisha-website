@@ -92,6 +92,8 @@ function ProtectedAdminRoute({ children }) {
       }
     };
 
+    checkAuth();
+
     // Check every 30 seconds to catch inactivity expiry
     const interval = setInterval(checkAuth, 30_000);
     window.addEventListener('storage', checkAuth);
@@ -104,7 +106,7 @@ function ProtectedAdminRoute({ children }) {
     };
   }, [navigate]);
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated) return <Navigate to="/admin/login" replace />;
   return children;
 }
 
