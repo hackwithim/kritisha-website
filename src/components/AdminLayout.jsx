@@ -192,14 +192,14 @@ export default function AdminLayout() {
                 className="flex items-center gap-3 bg-[#F8FAFC] hover:bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs transition-all cursor-pointer select-none"
               >
                 <div className="w-7 h-7 rounded-full bg-[#0A192F] text-white flex items-center justify-center text-xs font-bold overflow-hidden">
-                  {auth.user?.avatar ? (
-                    <img src={auth.user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                  {profile?.avatar ? (
+                    <img src={profile.avatar} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    auth.user?.name ? auth.user.name.substring(0, 2).toUpperCase() : 'AM'
+                    profile?.name ? profile.name.substring(0, 2).toUpperCase() : 'AM'
                   )}
                 </div>
                 <div className="hidden sm:flex flex-col text-left pr-1">
-                  <span className="text-xs font-bold text-[#0A192F] leading-tight">{auth.user?.name || 'Admin'}</span>
+                  <span className="text-xs font-bold text-[#0A192F] leading-tight">{profile?.name || 'Admin'}</span>
                   <span className="text-[9.5px] font-medium text-slate-500 leading-tight">Super Admin</span>
                 </div>
                 <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
